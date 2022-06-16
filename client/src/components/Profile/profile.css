@@ -1,0 +1,143 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1400px;
+  border: 1px solid red;
+}
+
+.profile__account {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 3rem;
+}
+
+.profile__account div:first-child {
+  margin-bottom: 2rem;
+}
+
+.profile__account img {
+  width: 300px;
+  height: 250px;
+}
+.profile__account-span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.profile__account-span__icon {
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.profile__account-div__title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+}
+.profile__account-div span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+  cursor: pointer;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.profile__account-div span:hover,
+.profile__account-div p:last-child:hover {
+  text-decoration: underline;
+  color: red;
+}
+
+.profile__account-div p:last-child {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  cursor: pointer;
+  width: 65px;
+}
+
+.profile__summary {
+  flex: 2;
+  padding: 0 3rem 0 6rem;
+  border: 1px solid greenyellow;
+}
+
+@media screen and (max-width: 1400px) {
+  .profile__summary {
+    padding: 0 3rem 0 3rem;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .profile {
+    flex-direction: column;
+  }
+  .profile__account {
+    flex-direction: row;
+    margin-left: 1.5rem;
+  }
+
+  .profile__account-div {
+    width: 100%;
+    margin: 0 1.5rem 0 2rem;
+  }
+
+  .profile__summary {
+    padding: 0 1.5rem 0 1.5rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile__account {
+    margin-left: 1rem;
+  }
+  .profile__account img {
+    width: 200px;
+    height: 200px;
+  }
+  .profile__account-div {
+    margin: 0 1rem 0 1rem;
+  }
+  .profile__summary {
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile__account {
+    margin-left: 0.5rem;
+  }
+  .profile__account img {
+    width: 150px;
+    height: 150px;
+  }
+  .profile__account-div {
+    margin: 0 0.5rem 0 0.5rem;
+  }
+
+  .profile__account-div span {
+    margin: 1rem 0;
+  }
+  .profile__summary {
+    padding: 0 0.5rem;
+  }
+}

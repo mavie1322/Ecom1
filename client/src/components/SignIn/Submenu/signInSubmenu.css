@@ -1,0 +1,32 @@
+.sign-submenu_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sign-submenu_link {
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.sign-submenu_link:hover {
+  text-decoration: underline;
+}
+
+.sign-submenu_container p {
+  width: 100%;
+  padding-left: 0;
+  padding-bottom: 0;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 12px;
+  color: rgb(130, 128, 128);
+}
+.sign-submenu_container p:hover {
+  color: black;
+  text-decoration: underline;
+}

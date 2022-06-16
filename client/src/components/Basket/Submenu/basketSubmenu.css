@@ -1,0 +1,125 @@
+.basketMenu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.basketMenu__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.basketMenu__items {
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.basketMenu__items p {
+  padding-left: 0;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 20px;
+}
+
+.basketMenu__total {
+  display: flex;
+  flex-direction: column;
+}
+
+.basketMenu__total-cost {
+  border-bottom: 2px solid rgb(195, 195, 195);
+  border-top: 1px solid rgb(195, 195, 195);
+}
+
+.basketMenu__total-cost p {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.basketMenu__total-cost span,
+.basketMenu__total span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.basketMenu__total-cost span p:first-child,
+.basketMenu__total span p:first-child {
+  padding-left: 0;
+}
+
+.basketMenu__total-cost span p:last-child,
+.basketMenu__total span p:last-child {
+  padding-right: 0;
+}
+
+.basketMenu__total-cost span p:first-child {
+  color: rgb(130, 128, 128);
+}
+
+.basketMenu__total-value p {
+  font-family: var(--font-family);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 20px;
+  color: black;
+}
+
+.basketMenu button {
+  width: 100%;
+  padding: 1rem 0;
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+
+.basketMenu__checkout {
+  background-color: black;
+  color: white;
+}
+
+.font-styling {
+  font-family: var(--font-family);
+  font-weight: 800;
+  font-size: 19px;
+  line-height: 20px;
+}
+
+.basketSubmenu {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+.basketSubmenu img {
+  width: 100px;
+  height: 150px;
+  margin-right: 0.5rem;
+}
+
+.basketSubmenu__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.basketSubmenu__info span {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.basketSubmenu__info span:nth-child(2) {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.basketSubmenu__info span:last-child {
+  font-size: 14px;
+}

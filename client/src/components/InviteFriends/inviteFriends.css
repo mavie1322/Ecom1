@@ -1,0 +1,61 @@
+.inviteFriend__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid green;
+}
+.inviteFriend__container h1 {
+  font-family: var(--font-family);
+  line-height: 35px;
+  margin-bottom: 2rem;
+}
+
+.inviteFriend__container-div {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: justify;
+}
+
+.inviteFriend__container-div p {
+  margin-bottom: 0.5rem;
+}
+
+.inviteFriend__container__work {
+  margin: 1.5rem 0;
+  font-family: var(--font-family);
+  line-height: 20px;
+}
+
+.inviteFriend__container__work p {
+  font-weight: 500;
+  font-size: 15px;
+  margin: 0.5rem 0;
+  text-align: justify;
+}
+
+.inviteFriend__container button {
+  width: 400px;
+  padding: 1rem 0;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+}
+
+.inviteFriend__container button:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 600px) {
+  .inviteFriend__container button {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .inviteFriend__container h1 {
+    font-size: 30px;
+  }
+}
