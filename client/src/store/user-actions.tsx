@@ -1,16 +1,39 @@
-import { UsernameProfile } from "../models";
-import { getUserByUsername } from "../services/api";
+import { UserDetails, User } from "../models";
+import { createUser, logInUser } from "../services/api";
+import { errorsActions } from "./errors-slices";
 import { userActions } from "./user-slices";
 
-export const fetchUsername = (username: string) => {
+export const signIn = (
+  userDetails: UserDetails,
+  togglePopup: () => void,
+  setUserDetails: React.Dispatch<React.SetStateAction<UserDetails>>
+) => {
   return async (dispatch: any) => {
     try {
-      const usernameProfile: UsernameProfile = await getUserByUsername(
-        username
-      );
-      dispatch(userActions.storeUser(usernameProfile));
+      const userProfile: User = await logInUser(userDetails);
+      dispatch(userActions.storeUser(userProfile));
+      togglePopup();
+      setUserDetails({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+      });
+      dispatch(errorsActions.errorUserLoggedIn(false));
     } catch (err: any) {
-      console.log("in reduux");
+      dispatch(errorsActions.errorUserLoggedIn(true));
+    }
+  };
+};
+
+export const signUp = (userDetails: UserDetails) => {
+  return async (dispatch: any) => {
+    try {
+      const userProfile: User = await createUser(userDetails);
+      if (userProfile) dispatch(errorsActions.errorUserCreation("true"));
+    } catch (error: any) {
+      if (error.response.data.message === "User already exists.")
+        dispatch(errorsActions.errorUserCreation("false"));
     }
   };
 };
