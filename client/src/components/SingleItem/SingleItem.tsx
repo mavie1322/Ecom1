@@ -10,19 +10,18 @@ import "./singleItem.css";
 const SingleItem = () => {
   const { item_id } = useParams<string>();
   const dispatch = useAppDispatch();
-  const [singleItemInformation, setSingleItemInformation] = useState<Article>({
-    item_id: 0,
+  const [singleItemDetails, setSingleItemDetails] = useState<Article>({
+    _id: "",
     item_name: "",
     price: 0,
     category_name: "",
     description: "",
     img_url: "",
   });
-  const { item_name, price, description, img_url } = singleItemInformation;
 
   const apiItemById = async (id: string) => {
-    const itemFromApi: { item: Article } = await getItemById(id);
-    setSingleItemInformation(itemFromApi.item);
+    const itemFromApi: Article = await getItemById(id);
+    setSingleItemDetails(itemFromApi);
   };
 
   const addToBasketHandler = (item: Article) => {
@@ -40,16 +39,19 @@ const SingleItem = () => {
   return (
     <div className='singleItem__container section__margin'>
       <div className='singleItem__container-image'>
-        <img src={img_url} alt={item_name} />
+        <img
+          src={singleItemDetails.img_url}
+          alt={singleItemDetails.item_name}
+        />
       </div>
       <div className='singleItem__container-info'>
-        <span>{item_name}</span>
-        <span>£ {price}</span>
+        <span>{singleItemDetails.item_name}</span>
+        <span>£ {singleItemDetails.price}</span>
         <hr />
-        <span>{description}</span>
+        <span>{singleItemDetails.description}</span>
         <hr />
         <span>
-          <button onClick={() => addToBasketHandler(singleItemInformation)}>
+          <button onClick={() => addToBasketHandler(singleItemDetails)}>
             Add
           </button>
         </span>
