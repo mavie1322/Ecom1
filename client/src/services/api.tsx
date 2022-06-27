@@ -1,30 +1,40 @@
 import axios from "axios";
+import { UserDetails } from "../models";
 
-const marketApi = axios.create({
-  baseURL: "https://nc-marketplace.herokuapp.com/api",
+const API = axios.create({
+  baseURL: "http://localhost:5000",
+});
+
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("user")) {
+    req.headers!.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("user")!).token
+    }`;
+  }
+  return req;
 });
 
 export const getItems = async () => {
-  const res = await marketApi.get("/items");
+  const res = await API.get("/products");
   return res.data;
 };
 
 export const getCategories = async () => {
-  const res = await marketApi.get("/categories");
+  const res = await API.get("/categories");
   return res.data;
 };
 
 export const getItemById = async (id: string) => {
-  const res = await marketApi.get(`/items/${id}`);
+  const res = await API.get(`/products/${id}`);
   return res.data;
 };
 
-export const getUserByUsername = async (username: string) => {
-  const res = await marketApi.get(`/users/${username}`);
-  return res.data.user;
+export const logInUser = async (body: UserDetails) => {
+  const res = await API.post("/users/signin", body);
+  return res.data;
 };
 
-export const postUser = async (body: { username: string }) => {
-  const res = await marketApi.post("/users", body);
+export const createUser = async (body: UserDetails) => {
+  const res = await API.post("/users/signup", body);
   return res.data;
 };
