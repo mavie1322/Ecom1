@@ -19,10 +19,6 @@ app.use("/products", ProductsRoutes);
 app.use("/categories", CategoriesRoutes);
 app.use("/users", UsersRoutes);
 
-// const CONNECTION_URL =
-//   "mongodb+srv://Orchestrate:Nctcch22@caffeineo1.8izcc.mongodb.net/Ecom?retryWrites=true&w=majority";
-// const PORT = process.env.PORT || 5000;
-
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
