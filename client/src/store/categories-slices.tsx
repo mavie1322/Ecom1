@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CategoriesState } from "../models";
+import { Category, CategoriesState } from "../models";
 
 const initialCategoriesState: CategoriesState = {
   categories: [],
@@ -10,12 +10,9 @@ export const categoriesSlice = createSlice({
   name: "categories",
   initialState: initialCategoriesState,
   reducers: {
-    storeCategories(state, action: PayloadAction<CategoriesState>) {
-      if (state.categories.length === 0) {
-        state.categories = action.payload.categories;
-      }
+    storeCategories(state, action: PayloadAction<Category[]>) {
+      state.categories = action.payload;
     },
-    addCategory() {},
     pickedCategory(state, action: PayloadAction<string>) {
       state.selected_category = action.payload;
     },
