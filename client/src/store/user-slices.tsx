@@ -1,24 +1,36 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UsernameProfile } from "../models";
+import { User } from "../models";
 
-const initialUserProfileState: UsernameProfile = {
-  username: "",
-  avatar_url: "",
-  kudos: 0,
-  items_in_basket: 0,
-  items_ordered: 0,
+const initialUserProfileState: User = {
+  result: {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    address: {
+      street_address: "",
+      flat_number: "",
+      city: "",
+      postcode: "",
+      country: "",
+    },
+    delivery_address: [],
+    basket: [],
+    orders: [],
+    _id: "",
+    __v: 0,
+  },
+  token: "",
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState: initialUserProfileState,
   reducers: {
-    storeUser(state, action: PayloadAction<UsernameProfile>) {
-      state.username = action.payload.username;
-      state.avatar_url = action.payload.avatar_url;
-      state.kudos = action.payload.kudos;
-      state.items_in_basket = action.payload.items_in_basket;
-      state.items_ordered = action.payload.items_ordered;
+    storeUser(state, action: PayloadAction<User>) {
+      localStorage.setItem("user", JSON.stringify({ ...action.payload }));
+      state.result = action.payload.result;
+      state.token = action.payload.token;
     },
     editUser() {},
   },
