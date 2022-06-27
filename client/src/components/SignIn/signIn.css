@@ -13,13 +13,13 @@
   margin: 0 auto;
   height: auto;
   max-height: 80vh;
-  margin-top: calc(100vh - 77vh - 20px);
+  margin-top: calc(100vh - 86vh - 20px);
   background: #fff;
   border-radius: 4px;
   padding: 20px;
   border: 1px solid #999;
   overflow: auto;
-
+  z-index: 1;
   font-family: var(--font-family);
 }
 
@@ -79,6 +79,9 @@
   line-height: 25px;
   cursor: pointer;
 }
+.sign-in__option:hover {
+  text-decoration: underline;
+}
 
 .sign-in__buttons button {
   width: 100%;
@@ -119,6 +122,20 @@
 
 .sign-in__become-member:hover {
   opacity: 0.7;
+}
+
+.successful-message {
+  border: 1px solid rgb(4, 250, 4);
+  text-align: center;
+  background-color: rgb(4, 250, 4);
+  padding: 0.5rem 0;
+}
+
+.error-message {
+  border: 1px solid rgb(253, 55, 55);
+  text-align: center;
+  background-color: rgb(253, 55, 55);
+  padding: 0.5rem 0;
 }
 
 /* .sign-in__become-member:focus {
