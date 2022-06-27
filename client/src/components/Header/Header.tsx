@@ -15,13 +15,15 @@ import BasketSubmenu from "../Basket/Submenu/BasketSubmenu";
 import SignIn from "../SignIn/SignIn";
 import SignInSubmenu from "../SignIn/Submenu/SignInSubmenu";
 import { itemsActions } from "../../store/items-slice";
+import { errorsActions } from "../../store/errors-slices";
 
 const Header: React.FC = () => {
   const categoriesList = useAppSelector((state) => state.categories.categories);
   const basketTotalQuantity = useAppSelector(
     (state) => state.basket.total_quantity
   );
-  let isLoggedIn = useAppSelector((state) => state.user.username);
+  let isLoggedIn = useAppSelector((state) => state.user.result.email);
+  const userInformation = useAppSelector((state) => state.user.result);
   const dispatch = useAppDispatch();
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [isHoveringBasket, setIsHoveringBasket] = useState<boolean>(false);
@@ -38,6 +40,8 @@ const Header: React.FC = () => {
 
   const togglePopup = () => {
     setOpenPopup(!openPopup);
+    dispatch(errorsActions.errorUserLoggedIn(false));
+    dispatch(errorsActions.errorUserCreation(""));
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -55,7 +59,7 @@ const Header: React.FC = () => {
     let input = event.target.value;
     setInputText(input);
   };
-
+  // console.log(isLoggedIn);
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -71,14 +75,18 @@ const Header: React.FC = () => {
                 className='header__navbar-menu_icons'
                 color='#000'
                 size={27}
-                onClick={() => setToggleMenu(false)}
+                onClick={() =>
+                  setToggleMenu((previousToggle) => !previousToggle)
+                }
               />
             ) : (
               <RiMenu2Line
                 className='header__navbar-menu_icons'
                 color='#000'
                 size={27}
-                onClick={() => setToggleMenu(true)}
+                onClick={() =>
+                  setToggleMenu((previousToggle) => !previousToggle)
+                }
               />
             )}
             {toggleMenu && (
@@ -106,7 +114,11 @@ const Header: React.FC = () => {
             onClick={() => togglePopup()}>
             <BsPerson className='header__icons-size' />
             {/* if user logged in his name should appear or sign in */}
-            {isLoggedIn ? <p>{isLoggedIn}</p> : <p>Sign In</p>}
+            {isLoggedIn ? (
+              <p>{`${userInformation.first_name} ${userInformation.last_name}`}</p>
+            ) : (
+              <p>Sign In</p>
+            )}
           </div>
           {/* when the user logged in and hover over this icon, the customer information submenu will appear */}
           {isHoveringSignIn && isLoggedIn && (
