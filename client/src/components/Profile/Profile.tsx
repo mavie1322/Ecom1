@@ -22,38 +22,39 @@ const Profile = () => {
   };
   console.log(user);
   return (
-    <div className='profile section__margin'>
-      <div className='profile__account'>
-        <div>
-          <span className='profile__account-span'>
-            <p>Hi {user.username}</p>
-            <FiSettings className='profile__account-span__icon' />
-          </span>
-          <img src={user.avatar_url} alt={`${user.username} avatar`} />
-        </div>
-        <div className='profile__account-div'>
-          <p className='profile__account-div__title'>My Account</p>
-          <span onClick={() => handleAllPurchases()}>
-            <p>All Purchases</p>
-            <AiOutlineRight />
-          </span>
-          <span onClick={() => handleInviteFriends()}>
-            <p>Invite a friend</p>
-            <AiOutlineRight />
-          </span>
-          <p>Sign out</p>
-        </div>
-      </div>
-      <div className='profile__summary'>
-        {showOrders ? (
-          <Orders />
-        ) : isInvitingFriends ? (
-          <InviteFriends />
-        ) : (
-          <></>
-        )}
-      </div>
-    </div>
+    <div>Profile</div>
+    // <div className='profile section__margin'>
+    //   <div className='profile__account'>
+    //     <div>
+    //       <span className='profile__account-span'>
+    //         <p>Hi {user.username}</p>
+    //         <FiSettings className='profile__account-span__icon' />
+    //       </span>
+    //       <img src={user.avatar_url} alt={`${user.username} avatar`} />
+    //     </div>
+    //     <div className='profile__account-div'>
+    //       <p className='profile__account-div__title'>My Account</p>
+    //       <span onClick={() => handleAllPurchases()}>
+    //         <p>All Purchases</p>
+    //         <AiOutlineRight />
+    //       </span>
+    //       <span onClick={() => handleInviteFriends()}>
+    //         <p>Invite a friend</p>
+    //         <AiOutlineRight />
+    //       </span>
+    //       <p>Sign out</p>
+    //     </div>
+    //   </div>
+    //   <div className='profile__summary'>
+    //     {showOrders ? (
+    //       <Orders />
+    //     ) : isInvitingFriends ? (
+    //       <InviteFriends />
+    //     ) : (
+    //       <></>
+    //     )}
+    //   </div>
+    // </div>
   );
 };
 
