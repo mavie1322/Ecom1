@@ -10,15 +10,13 @@ const Items: React.FC<Props> = ({ itemsList }) => {
   return (
     <div className='home section__margin'>
       {itemsList.map((item: Article) => {
+        const { _id, img_url, item_name, price } = item;
         return (
-          <Link
-            key={item.item_id}
-            to={`/items/${item.item_id}`}
-            className='link'>
+          <Link key={_id} to={`/products/${_id}`} className='link'>
             <div className='singleItem'>
-              <img src={item.img_url} alt={item.item_name} />
-              <p>{item.item_name}</p>
-              <p>£ {item.price}</p>
+              <img src={img_url} alt={item_name} />
+              <p>{item_name}</p>
+              <p>£ {price}</p>
             </div>
           </Link>
         );
