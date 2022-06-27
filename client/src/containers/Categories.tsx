@@ -18,14 +18,14 @@ const Categories: React.FC<Props> = ({ categoriesList }) => {
   return (
     <>
       {categoriesList.map((category) => {
-        const { category_name }: { category_name: string } = category;
+        const { _id, category_name } = category;
         return (
           <Link
             to={"/"}
             className='link'
-            key={category_name}
+            key={_id}
             onClick={() => selectCategoryHandler(category_name)}>
-            <p>{category.category_name}</p>
+            <p>{category_name}</p>
           </Link>
         );
       })}
