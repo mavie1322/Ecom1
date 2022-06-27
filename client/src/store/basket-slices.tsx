@@ -14,7 +14,7 @@ export const basketSlice = createSlice({
     addItemToBasket(state, action: PayloadAction<BasketItem>) {
       const newItem = action.payload;
       let isItemExist = state.items.find(
-        (item) => item.item_basket.item_id === newItem.item_basket.item_id
+        (item) => item.item_basket._id === newItem.item_basket._id
       );
       if (isItemExist) {
         isItemExist.quantity_ordered++;
@@ -25,21 +25,20 @@ export const basketSlice = createSlice({
 
       state.total_quantity++;
     },
-    removeItemFromBasket(state, action: PayloadAction<number>) {
+    removeItemFromBasket(state, action: PayloadAction<string>) {
       state.items = state.items.filter(
-        (item) => item.item_basket.item_id !== action.payload
+        (item) => item.item_basket._id !== action.payload
       );
       state.total_quantity = state.items.reduce((total, item) => {
         total += item.quantity_ordered;
         return total;
       }, 0);
     },
-    changeItemQuantity(state, action: PayloadAction<[number, number]>) {
-      const [newQuantity, item_id] = action.payload;
+    changeItemQuantity(state, action: PayloadAction<[number, string]>) {
+      const [newQuantity, _id] = action.payload;
 
       state.items = state.items.map((item) => {
-        if (item.item_basket.item_id === item_id)
-          item.quantity_ordered = newQuantity;
+        if (item.item_basket._id === _id) item.quantity_ordered = newQuantity;
         return item;
       });
       state.total_quantity = state.items.reduce((total, item) => {
