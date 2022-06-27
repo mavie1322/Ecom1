@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/hooks";
-import { postUser } from "../../services/api";
-import { fetchUsername } from "../../store/user-actions";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { UserDetails } from "../../models";
+import { errorsActions } from "../../store/errors-slices";
+import { signIn, signUp } from "../../store/user-actions";
 import "./signIn.css";
 
 interface Props {
@@ -9,26 +10,49 @@ interface Props {
 }
 
 const SignIn: React.FC<Props> = ({ togglePopup }) => {
+  const isAccountCreated = useAppSelector(
+    (state) => state.errors.user_creation
+  );
+  const isUserNotLoggedIn = useAppSelector((state) => state.errors.not_login);
   const [member, setMember] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>("");
+  const [userDetails, setUserDetails] = useState<UserDetails>({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
   const dispatch = useAppDispatch();
 
-  const handleSignInSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      dispatch(fetchUsername(username));
-    } catch (err) {
-      console.log("change color");
-    }
 
-    togglePopup();
+    if (member) {
+      dispatch(signUp(userDetails));
+      setUserDetails({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+      });
+    } else {
+      dispatch(signIn(userDetails, togglePopup, setUserDetails));
+    }
   };
 
-  const handleMemberSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    postUser({ username: username });
-    setUsername("");
-    setMember(false);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserDetails({ ...userDetails, [event.target.name]: event.target.value });
+  };
+
+  const handleSwitch = () => {
+    setMember((previousState) => !previousState);
+    setUserDetails({
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+    });
+    dispatch(errorsActions.errorUserCreation(""));
+    dispatch(errorsActions.errorUserLoggedIn(false));
   };
 
   return (
@@ -47,26 +71,52 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
             ) : (
               <header className='sign-in__header font-styling'>Sign in</header>
             )}
+            {/* error messages */}
+            {isAccountCreated === "true" ? (
+              <p className='successful-message'>
+                Your account has been successfully created
+              </p>
+            ) : isAccountCreated === "false" ? (
+              <p className='error-message'>The account already exists</p>
+            ) : (
+              <></>
+            )}
 
-            <form
-              onSubmit={(e) => {
-                if (member) return handleMemberSubmit(e);
-                return handleSignInSubmit(e);
-              }}>
-              {/* create first and last name input */}
+            {isUserNotLoggedIn && (
+              <p className='error-message'>
+                Your email and password are invalid
+              </p>
+            )}
+
+            <form onSubmit={(e) => handleSubmit(e)}>
+              {/* create first and last name input to sign up */}
               {member && (
                 <>
                   <div className='sign-in__inputs'>
                     <span>
                       <label>First name</label>
                     </span>
-                    <input type='text' style={{ backgroundColor: "white" }} />
+                    <input
+                      required
+                      name='first_name'
+                      type='text'
+                      value={userDetails.first_name}
+                      onChange={(e) => handleChange(e)}
+                      style={{ backgroundColor: "white" }}
+                    />
                   </div>
                   <div className='sign-in__inputs'>
                     <span>
                       <label>Last name</label>
                     </span>
-                    <input type='text' style={{ backgroundColor: "white" }} />
+                    <input
+                      required
+                      name='last_name'
+                      type='text'
+                      value={userDetails.last_name}
+                      onChange={(e) => handleChange(e)}
+                      style={{ backgroundColor: "white" }}
+                    />
                   </div>
                 </>
               )}
@@ -77,9 +127,10 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
                 </span>
                 <input
                   type='text'
-                  // required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                  name='email'
+                  value={userDetails.email}
+                  onChange={(e) => handleChange(e)}
                   style={member ? { backgroundColor: "white" } : {}}
                 />
               </div>
@@ -98,20 +149,21 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
                 )}
                 {/* background color white when signing up */}
                 <input
-                  // required
+                  required
+                  name='password'
+                  value={userDetails.password}
+                  onChange={(e) => handleChange(e)}
                   style={member ? { backgroundColor: "white" } : {}}
                   type='password'
                 />
               </div>
               {/*decide which buttons to appear either on the sign in or sign up pop up window */}
               {member ? (
-                //only the become member button will appear on the sign up pop up
                 <>
                   <div className='sign-in__buttons'>
                     <button
                       type='submit'
                       className='sign-in__become-member font-styling'
-                      // adding style to the button when user is on become member pop up
                       style={
                         member
                           ? {
@@ -123,13 +175,11 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
                       }>
                       Become a member
                     </button>
-                    <span onClick={() => setMember(false)}>
-                      Back to sign in
-                    </span>
+                    <span onClick={() => handleSwitch()}>Back to sign in</span>
                   </div>
                 </>
               ) : (
-                //resetting the password will be possible when you sign up
+                //resetting the password will be possible when you sign in
                 // sign in and become member buttons will appear when you are on the sign in popup
                 <>
                   {" "}
@@ -147,7 +197,7 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
                     <button
                       type='button'
                       className='sign-in__become-member font-styling'
-                      onClick={() => setMember(true)}>
+                      onClick={() => handleSwitch()}>
                       Become a member
                     </button>
                   </div>
