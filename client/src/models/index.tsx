@@ -1,7 +1,5 @@
-import { Article } from "@mui/icons-material";
-
 export interface Article {
-  item_id: number;
+  _id: string;
   item_name: string;
   price: number;
   category_name: string;
@@ -19,16 +17,11 @@ export interface UsernameProfile {
 
 export interface ArticleState {
   itemsList: Article[];
-  totalItems: number;
   searchItem: string;
 }
 
-export interface ArticleFromApi {
-  items: Article[];
-  total_items: number;
-}
-
 export type Category = {
+  _id: string;
   category_name: string;
 };
 
@@ -47,3 +40,48 @@ export interface BasketState {
   items: BasketItem[];
   total_quantity: number;
 }
+
+export type Address = {
+  street_address: string;
+  flat_number: string;
+  city: string;
+  postcode: string;
+  country: string;
+};
+
+export type UserDetails = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+};
+
+export interface User {
+  result: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+    address: Address;
+    delivery_address: Address[];
+    basket: BasketItem[];
+    orders: string[];
+    _id: string;
+    __v: number;
+  };
+  token: string;
+}
+
+export interface Orders {
+  _id: string;
+  items: BasketItem[];
+  total_cost: number;
+  createdAt: Date;
+  buyer: string;
+  delivery_cost: boolean;
+}
+
+export type Errors = {
+  user_creation: string;
+  not_login: boolean;
+};
