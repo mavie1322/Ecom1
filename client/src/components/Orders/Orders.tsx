@@ -3,7 +3,7 @@ import { useAppSelector } from "../../hooks/hooks";
 import "./orders.css";
 
 const Orders = () => {
-  const orders = useAppSelector((state) => state.user.items_ordered);
+  const orders = useAppSelector((state) => state.user);
   console.log(orders);
   return (
     <div>
