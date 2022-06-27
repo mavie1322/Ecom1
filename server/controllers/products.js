@@ -12,10 +12,8 @@ export const getProducts = async (req, res) => {
 
 export const getSingleProduct = async (req, res) => {
   const { id: _id } = req.params;
-  console.log(req.params);
   if (!mongoose.Types.ObjectId.isValid(_id))
     res.status(404).send("No product with that id");
   const productFound = await ProductsMessage.findById(_id);
-  console.log(productFound);
   res.status(200).send(productFound);
 };
