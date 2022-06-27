@@ -91,7 +91,7 @@
   font-weight: 600;
   font-size: 100px;
   color: rgb(255, 55, 0);
-  /* border: 1px red solid; */
+  z-index: -1;
 }
 
 .header__logo p:last-child,
