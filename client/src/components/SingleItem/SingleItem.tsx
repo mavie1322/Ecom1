@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/hooks";
-import { Article } from "../../models";
+import { BasketContext } from "../../context/basket";
+import { Article, BasketContextType } from "../../models";
 import { getItemById } from "../../services/api";
-import { basketActions } from "../../store/basket-slices";
 
 import "./singleItem.css";
 
 const SingleItem = () => {
+  const { addToBasket } = useContext(BasketContext) as BasketContextType;
   const { item_id } = useParams<string>();
-  const dispatch = useAppDispatch();
+
   const [singleItemDetails, setSingleItemDetails] = useState<Article>({
     _id: "",
     item_name: "",
@@ -29,7 +29,7 @@ const SingleItem = () => {
       item_basket: item,
       quantity_ordered: 1,
     };
-    dispatch(basketActions.addItemToBasket(itemToAdd));
+    addToBasket(itemToAdd);
   };
 
   useEffect(() => {
