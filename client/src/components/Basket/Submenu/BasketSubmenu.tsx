@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BasketContext } from "../../../context/basket";
 import { useAppSelector } from "../../../hooks/hooks";
+import { BasketContextType } from "../../../models";
 import "./basketSubmenu.css";
 
 type Props = {
@@ -7,11 +10,11 @@ type Props = {
 };
 
 const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
-  const itemsInBasket = useAppSelector((state) => state.basket);
-  const userLoggedIn = useAppSelector((state) => state.user);
+  const { itemsInBasket } = useContext(BasketContext) as BasketContextType;
+  const userLoggedIn = useAppSelector((state) => state.user.result._id);
   const delivery: number = 3.99;
   const navigate = useNavigate();
-  let orderValue: number = itemsInBasket.items.reduce((total, item) => {
+  let orderValue: number = itemsInBasket.reduce((total, item) => {
     total += item.item_basket.price * item.quantity_ordered;
     return total;
   }, 0);
@@ -25,12 +28,12 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
     <div className='basketMenu'>
       <div className='basketMenu__container'>
         <div className='basketMenu__items'>
-          {itemsInBasket.items.length === 0 ? (
+          {itemsInBasket.length === 0 ? (
             <p className='font-styling'>Your basket is empty</p>
           ) : (
             // loop through the items in the basket to display in the submenu
             <>
-              {itemsInBasket.items.map((item) => {
+              {itemsInBasket.map((item) => {
                 const { item_basket, quantity_ordered } = item;
                 const { item_name, price, img_url, _id } = item_basket;
                 return (
@@ -62,7 +65,7 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
               <p>£{orderValue.toFixed(2)}</p>
             </span>
             {/* if there is items in the basket delivery cost will be add to the total cost */}
-            {itemsInBasket.items.length !== 0 && (
+            {itemsInBasket.length !== 0 && (
               <span>
                 <p>Delivery</p>
                 {orderValue > 2000 ? <p>FREE</p> : <p>£{delivery}</p>}
@@ -72,7 +75,7 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
           {/* show the total cost */}
           <span className='basketMenu__total-value'>
             <p>Total</p>
-            {itemsInBasket.items.length === 0 || orderValue > 2000 ? (
+            {itemsInBasket.length === 0 || orderValue > 2000 ? (
               <p>£{orderValue.toFixed(2)}</p>
             ) : (
               <p>£{(delivery + orderValue).toFixed(2)}</p>
