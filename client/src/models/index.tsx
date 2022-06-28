@@ -85,3 +85,8 @@ export type Errors = {
   user_creation: string;
   not_login: boolean;
 };
+
+export type BasketContextType = {
+  itemsInBasket: BasketItem[];
+  addToBasket: (item: BasketItem) => void;
+};
