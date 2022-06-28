@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { UserDetails } from "../../models";
 import { errorsActions } from "../../store/errors-slices";
-import { signIn, signUp } from "../../store/user-actions";
+import { signIn, signUp } from "../../actions/user-actions";
 import "./signIn.css";
 
 interface Props {
