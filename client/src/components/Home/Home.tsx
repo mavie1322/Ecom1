@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Items from "../../containers/Items";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { Article } from "../../models";
-import { fetchItems } from "../../store/items-actions";
+import { fetchItems } from "../../actions/items-actions";
 import "./home.css";
 
 const Home = () => {
