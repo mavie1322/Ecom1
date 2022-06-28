@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
@@ -8,7 +8,7 @@ import { RiMenu2Line, RiCloseLine } from "react-icons/ri";
 import { IoSearchOutline } from "react-icons/io5";
 import { TextField } from "@mui/material";
 
-import { fetchCategories } from "../../store/categories-actions";
+import { fetchCategories } from "../../actions/categories-actions";
 import Categories from "../../containers/Categories";
 import { categoriesActions } from "../../store/categories-slices";
 import BasketSubmenu from "../Basket/Submenu/BasketSubmenu";
@@ -16,13 +16,13 @@ import SignIn from "../SignIn/SignIn";
 import SignInSubmenu from "../SignIn/Submenu/SignInSubmenu";
 import { itemsActions } from "../../store/items-slice";
 import { errorsActions } from "../../store/errors-slices";
+import { BasketContext } from "../../context/basket";
+import { BasketContextType } from "../../models";
 
 const Header: React.FC = () => {
+  const { itemsInBasket } = useContext(BasketContext) as BasketContextType;
   const categoriesList = useAppSelector((state) => state.categories.categories);
-  const basketTotalQuantity = useAppSelector(
-    (state) => state.basket.total_quantity
-  );
-  let isLoggedIn = useAppSelector((state) => state.user.result.email);
+  let isLoggedIn = useAppSelector((state) => state.user.result._id);
   const userInformation = useAppSelector((state) => state.user.result);
   const dispatch = useAppDispatch();
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -32,6 +32,10 @@ const Header: React.FC = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const navigate = useNavigate();
+  const basketTotalQuantity = itemsInBasket.reduce((total, item) => {
+    total += item.quantity_ordered;
+    return total;
+  }, 0);
 
   const selectCategoryHandler = () => {
     dispatch(categoriesActions.pickedCategory(""));
