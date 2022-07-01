@@ -24,8 +24,12 @@ export const BasketProvider = ({ children }: { children: any }) => {
     }
   };
 
+  const clear = () => {
+    setItemsInBasket([]);
+  };
+
   return (
-    <BasketContext.Provider value={{ itemsInBasket, addToBasket }}>
+    <BasketContext.Provider value={{ itemsInBasket, addToBasket, clear }}>
       {children}
     </BasketContext.Provider>
   );
