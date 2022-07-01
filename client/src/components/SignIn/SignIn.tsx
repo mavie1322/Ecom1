@@ -1,25 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { UserDetails } from "../../models";
+import { BasketContextType, UserDetails } from "../../models";
 import { errorsActions } from "../../store/errors-slices";
 import { signIn, signUp } from "../../actions/user-actions";
 import "./signIn.css";
+import { BasketContext } from "../../context/basket";
 
 interface Props {
   togglePopup: () => void;
 }
 
 const SignIn: React.FC<Props> = ({ togglePopup }) => {
-  const isAccountCreated = useAppSelector(
+  const accountCreationError = useAppSelector(
     (state) => state.errors.user_creation
   );
-  const isUserNotLoggedIn = useAppSelector((state) => state.errors.not_login);
+  const { itemsInBasket, clear } = useContext(
+    BasketContext
+  ) as BasketContextType;
+  const logInError = useAppSelector((state) => state.errors.not_login);
   const [member, setMember] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<UserDetails>({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
+    basket: [],
   });
   const dispatch = useAppDispatch();
 
@@ -33,11 +38,22 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
         last_name: "",
         email: "",
         password: "",
+        basket: [],
       });
     } else {
       dispatch(signIn(userDetails, togglePopup, setUserDetails));
     }
+    clear();
   };
+
+  useEffect(() => {
+    if (itemsInBasket.length > 0) {
+      setUserDetails((previousDetails) => {
+        const newDetails = { ...previousDetails, basket: [...itemsInBasket] };
+        return newDetails;
+      });
+    }
+  }, [itemsInBasket]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserDetails({ ...userDetails, [event.target.name]: event.target.value });
@@ -45,11 +61,16 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
 
   const handleSwitch = () => {
     setMember((previousState) => !previousState);
-    setUserDetails({
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
+    // we didn't reset the basket because you need the content to sign up
+    setUserDetails((previousDetails) => {
+      const newDetails = {
+        ...previousDetails,
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+      };
+      return newDetails;
     });
     dispatch(errorsActions.errorUserCreation(""));
     dispatch(errorsActions.errorUserLoggedIn(false));
@@ -72,19 +93,19 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
               <header className='sign-in__header font-styling'>Sign in</header>
             )}
             {/* error messages */}
-            {isAccountCreated === "true" ? (
+            {accountCreationError === "true" ? (
               <p className='successful-message'>
-                Your account has been successfully created
+                Your account has been successfully created.
               </p>
-            ) : isAccountCreated === "false" ? (
-              <p className='error-message'>The account already exists</p>
+            ) : accountCreationError === "false" ? (
+              <p className='error-message'>The account already exists.</p>
             ) : (
               <></>
             )}
 
-            {isUserNotLoggedIn && (
+            {logInError && (
               <p className='error-message'>
-                Your email and password are invalid
+                Your email and password are invalid.
               </p>
             )}
 
