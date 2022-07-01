@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserDetails } from "../models";
+import { BasketItem, UserDetails } from "../models";
 
 const API = axios.create({
   baseURL: "http://localhost:5000",
@@ -36,5 +36,26 @@ export const logInUser = async (body: UserDetails) => {
 
 export const createUser = async (body: UserDetails) => {
   const res = await API.post("/users/signup", body);
+  return res.data;
+};
+
+export const addItemsToBasket = async (body: BasketItem[], id: string) => {
+  const res = await API.post(`/users/${id}/basket`, body);
+  return res.data;
+};
+
+export const deleteItemInBasket = async (
+  body: { id: string },
+  userId: string
+) => {
+  const res = await API.patch(`/users/${userId}/basket`, body);
+  return res.data;
+};
+
+export const changeItemQuantity = async (
+  body: [number, string],
+  userId: string
+) => {
+  const res = await API.patch(`/users/${userId}/basket`, body);
   return res.data;
 };
