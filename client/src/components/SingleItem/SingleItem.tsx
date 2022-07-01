@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BasketContext } from "../../context/basket";
+import { useAppSelector } from "../../hooks/hooks";
 import { Article, BasketContextType } from "../../models";
 import { getItemById } from "../../services/api";
 
@@ -8,6 +9,7 @@ import "./singleItem.css";
 
 const SingleItem = () => {
   const { addToBasket } = useContext(BasketContext) as BasketContextType;
+  const user = useAppSelector((state) => state.user.result);
   const { item_id } = useParams<string>();
 
   const [singleItemDetails, setSingleItemDetails] = useState<Article>({
@@ -25,11 +27,13 @@ const SingleItem = () => {
   };
 
   const addToBasketHandler = (item: Article) => {
-    const itemToAdd = {
-      item_basket: item,
-      quantity_ordered: 1,
-    };
-    addToBasket(itemToAdd);
+    if (user.email === "") {
+      const itemToAdd = {
+        item_basket: item,
+        quantity_ordered: 1,
+      };
+      addToBasket(itemToAdd);
+    }
   };
 
   useEffect(() => {
