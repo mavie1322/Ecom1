@@ -22,7 +22,7 @@ import { BasketContextType } from "../../models";
 const Header: React.FC = () => {
   const { itemsInBasket } = useContext(BasketContext) as BasketContextType;
   const categoriesList = useAppSelector((state) => state.categories.categories);
-  let isLoggedIn = useAppSelector((state) => state.user.result._id);
+  let isLoggedIn = useAppSelector((state) => state.user.result);
   const userInformation = useAppSelector((state) => state.user.result);
   const dispatch = useAppDispatch();
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -32,10 +32,23 @@ const Header: React.FC = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const navigate = useNavigate();
-  const basketTotalQuantity = itemsInBasket.reduce((total, item) => {
-    total += item.quantity_ordered;
-    return total;
-  }, 0);
+  const [basketTotalQuantity, setBasketTotalQuantity] = useState<number>(0);
+
+  useEffect(() => {
+    isLoggedIn.email === ""
+      ? setBasketTotalQuantity(
+          itemsInBasket.reduce((total, item) => {
+            total += item.quantity_ordered;
+            return total;
+          }, 0)
+        )
+      : setBasketTotalQuantity(
+          isLoggedIn.basket.reduce((total, item) => {
+            total += item.quantity_ordered;
+            return total;
+          }, 0)
+        );
+  }, [isLoggedIn.basket, isLoggedIn.email, itemsInBasket]);
 
   const selectCategoryHandler = () => {
     dispatch(categoriesActions.pickedCategory(""));
@@ -118,14 +131,14 @@ const Header: React.FC = () => {
             onClick={() => togglePopup()}>
             <BsPerson className='header__icons-size' />
             {/* if user logged in his name should appear or sign in */}
-            {isLoggedIn ? (
+            {isLoggedIn._id ? (
               <p>{`${userInformation.first_name} ${userInformation.last_name}`}</p>
             ) : (
               <p>Sign In</p>
             )}
           </div>
           {/* when the user logged in and hover over this icon, the customer information submenu will appear */}
-          {isHoveringSignIn && isLoggedIn && (
+          {isHoveringSignIn && isLoggedIn._id && (
             <div
               className='header__navbar-menu_container header__sign-hover scale-up-ver-top'
               onMouseOver={() => setIsHoveringSignIn(true)}
@@ -134,7 +147,7 @@ const Header: React.FC = () => {
             </div>
           )}
           {/* pop up window will appear when the user want to sign in */}
-          {openPopup && !isLoggedIn && <SignIn togglePopup={togglePopup} />}
+          {openPopup && !isLoggedIn._id && <SignIn togglePopup={togglePopup} />}
           {/* Search */}
           <div
             className='header__icons-container'
@@ -156,10 +169,10 @@ const Header: React.FC = () => {
           {/* Basket */}
           <div>
             {/* can't access basket without signing in */}
-            {isLoggedIn ? (
+            {isLoggedIn._id ? (
               <>
                 <Link
-                  to={`/users/${isLoggedIn}/basket`}
+                  to={`/users/${isLoggedIn._id}/basket`}
                   className='link header__icons-container header__navbar-menu'
                   onMouseOver={() => setIsHoveringBasket(true)}
                   onMouseOut={() => setIsHoveringBasket(false)}>
