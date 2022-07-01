@@ -1,14 +1,16 @@
 import jwt from "jsonwebtoken";
 
-const auth = async (req, res, next) => {
+export const auth = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     let decodedData = jwt.verify(token, process.env.SECRET);
-    req.userId = decodedData?._id;
+    console.log(decodedData, "auth");
+    req.email = decodedData.email;
+    req.userId = decodedData.id;
+    // console.log(typeof req.userId);
+    // console.log(req.email);
     next();
   } catch (error) {
     console.log(error);
   }
 };
-
-export default auth;
