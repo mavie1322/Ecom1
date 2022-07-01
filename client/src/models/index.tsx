@@ -54,6 +54,7 @@ export type UserDetails = {
   last_name: string;
   email: string;
   password: string;
+  basket: BasketItem[];
 };
 
 export interface User {
@@ -89,4 +90,5 @@ export type Errors = {
 export type BasketContextType = {
   itemsInBasket: BasketItem[];
   addToBasket: (item: BasketItem) => void;
+  clear: () => void;
 };
