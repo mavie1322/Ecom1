@@ -82,6 +82,10 @@
   color: white;
 }
 
+.basketMenu__checkout:hover {
+  opacity: 0.7;
+}
+
 .font-styling {
   font-family: var(--font-family);
   font-weight: 800;
