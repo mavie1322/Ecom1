@@ -39,12 +39,15 @@ export const createUser = async (body: UserDetails) => {
   return res.data;
 };
 
-export const addItemsToBasket = async (body: BasketItem[], id: string) => {
-  const res = await API.post(`/users/${id}/basket`, body);
+export const addItemToBasketApi = async (
+  body: { item: BasketItem },
+  id: string
+) => {
+  const res = await API.patch(`/users/${id}/basket`, body);
   return res.data;
 };
 
-export const deleteItemInBasket = async (
+export const deleteItemInBasketApi = async (
   body: { id: string },
   userId: string
 ) => {
@@ -52,8 +55,8 @@ export const deleteItemInBasket = async (
   return res.data;
 };
 
-export const changeItemQuantity = async (
-  body: [number, string],
+export const changeItemQuantityApi = async (
+  body: { itemQuantity: [number, string] },
   userId: string
 ) => {
   const res = await API.patch(`/users/${userId}/basket`, body);
