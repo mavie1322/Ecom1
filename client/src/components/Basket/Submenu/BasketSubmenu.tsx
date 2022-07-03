@@ -13,7 +13,7 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
   const userLoggedIn = useAppSelector((state) => state.user.result);
   const { itemsInBasket } = useContext(BasketContext) as BasketContextType;
   const [productsInBasket, setProductsInBasket] = useState<BasketItem[]>([]);
-  const delivery: number = 3.99;
+  const delivery: number = 25.99;
   const navigate = useNavigate();
   let orderValue: number = productsInBasket.reduce((total, item) => {
     total += item.item_basket.price * item.quantity_ordered;
