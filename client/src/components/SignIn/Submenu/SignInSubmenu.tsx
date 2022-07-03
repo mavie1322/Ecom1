@@ -5,15 +5,14 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../../hooks/hooks";
 
 const SignInSubmenu = () => {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.result);
   return (
-    <div>Other Sign in</div>
-    // <div className='sign-submenu_container'>
-    //   <Link to={`/users/${user.username}`} className='link sign-submenu_link'>
-    //     My Account
-    //   </Link>
-    //   <p>Sign out</p>
-    // </div>
+    <div className='sign-submenu_container'>
+      <Link to={`/users/${user._id}`} className='link sign-submenu_link'>
+        My Account
+      </Link>
+      <p>Sign out</p>
+    </div>
   );
 };
 
