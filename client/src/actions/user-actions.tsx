@@ -1,8 +1,9 @@
 import { UserDetails, User, BasketItem } from "../models";
 import {
-  addItemsToBasket,
+  addItemToBasketApi,
+  changeItemQuantityApi,
   createUser,
-  deleteItemInBasket,
+  deleteItemInBasketApi,
   logInUser,
 } from "../services/api";
 import { errorsActions } from "../store/errors-slices";
@@ -16,7 +17,6 @@ export const signIn = (
   return async (dispatch: any) => {
     try {
       const userProfile: User = await logInUser(userDetails);
-      console.log(userProfile);
       dispatch(userActions.storeUser(userProfile));
       togglePopup();
       setUserDetails({
@@ -45,25 +45,25 @@ export const signUp = (userDetails: UserDetails) => {
   };
 };
 
-export const addToBasketApi = (items: BasketItem[], id: string) => {
+export const addItemToBasket = (item: BasketItem, id: string) => {
   return async (dispatch: any) => {
     try {
-      const newUserProfile: User = await addItemsToBasket(items, id);
-      dispatch(userActions.updateBasket(newUserProfile));
+      const newUserProfile: User = await addItemToBasketApi({ item }, id);
+      dispatch(userActions.storeUser(newUserProfile));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const deleteItemApi = (itemId: string, userId: string) => {
+export const deleteItem = (itemId: string, userId: string) => {
   return async (dispatch: any) => {
     try {
-      const newUserProfile: User = await deleteItemInBasket(
+      const newUserProfile: User = await deleteItemInBasketApi(
         { id: itemId },
         userId
       );
-      console.log(newUserProfile);
+
       dispatch(userActions.storeUser(newUserProfile));
     } catch (error) {
       console.log(error);
@@ -77,8 +77,11 @@ export const changeItemQuantity = (
 ) => {
   return async (dispatch: any) => {
     try {
-      const newUserProfile = await changeItemQuantity(itemQuantity, userId);
-      console.log(newUserProfile);
+      const newUserProfile = await changeItemQuantityApi(
+        { itemQuantity },
+        userId
+      );
+      dispatch(userActions.storeUser(newUserProfile));
     } catch (error) {
       console.log(error);
     }
