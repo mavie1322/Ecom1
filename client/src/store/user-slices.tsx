@@ -32,7 +32,17 @@ export const userSlice = createSlice({
       state.result = action.payload.result;
       state.token = action.payload.token;
     },
-    editUser() {},
+    // // editUser() { },
+    // updateBasket(state, action: PayloadAction<User>) {
+    //   localStorage.setItem("user", JSON.stringify({ ...action.payload }));
+    //   state = {
+    //     ...state,
+    //     result: {
+    //       ...state.result,
+    //       basket: [...state.result.basket, ...action.payload.result.basket],
+    //     },
+    //   };
+    // },
   },
 });
 
