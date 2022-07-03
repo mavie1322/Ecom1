@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import "./basket.css";
 
-import { changeItemQuantity, deleteItemApi } from "../../actions/user-actions";
+import { changeItemQuantity, deleteItem } from "../../actions/user-actions";
 import { useParams } from "react-router-dom";
 
 const Basket = () => {
@@ -38,9 +38,9 @@ const Basket = () => {
   }, [dispatch, itemQuantity, id]);
 
   useEffect(() => {
-    dispatch(deleteItemApi(itemToDelete, id!));
+    dispatch(deleteItem(itemToDelete, id!));
   }, [dispatch, itemToDelete, id]);
-  console.log(userBasket, "basket");
+
   return (
     <div className='basket'>
       <div className='basket__title'>Shopping Bag</div>
@@ -129,6 +129,7 @@ const Basket = () => {
 
           {/* display redirect buttons to checkout component */}
           <button
+            type='button'
             className='basketMenu__checkout font-styling'
             onClick={() => handleCheckout()}>
             Continue to checkout
