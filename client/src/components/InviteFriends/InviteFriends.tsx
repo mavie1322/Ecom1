@@ -4,7 +4,7 @@ import "./inviteFriends.css";
 const InviteFriends = () => {
   return (
     <div className='inviteFriend__container'>
-      {/* <h1>Invite your friend</h1>
+      <h1>Invite your friend</h1>
       <div className='inviteFriend__container-div'>
         <p>Let them in all the perks!</p>
         <p>
@@ -19,8 +19,7 @@ const InviteFriends = () => {
           discount when they complete their first purchase
         </p>
       </div>
-      <button className=' font-styling'>Invite now</button> */}
-      InviteFriends
+      <button className=' font-styling'>Invite now</button>
     </div>
   );
 };
