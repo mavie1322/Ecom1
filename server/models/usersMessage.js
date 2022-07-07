@@ -13,8 +13,13 @@ const userSchema = mongoose.Schema({
     country: String,
   },
   delivery_address: {
-    type: Array,
-    default: [],
+    first_name: String,
+    last_name: String,
+    street_address: String,
+    flat_number: String,
+    city: String,
+    postcode: String,
+    country: String,
   },
   basket: {
     type: Array,
