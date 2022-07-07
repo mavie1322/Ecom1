@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 import "./header.css";
-import { BsPerson, BsBasket3 } from "react-icons/bs";
+import { BsPerson, BsBasket3, BsArrowLeft } from "react-icons/bs";
 import { RiMenu2Line, RiCloseLine } from "react-icons/ri";
 import { IoSearchOutline } from "react-icons/io5";
 import { TextField } from "@mui/material";
@@ -20,7 +20,9 @@ import { BasketContext } from "../../context/basket";
 import { BasketContextType } from "../../models";
 
 const Header: React.FC = () => {
-  const { itemsInBasket } = useContext(BasketContext) as BasketContextType;
+  const { itemsInBasket, isCheckout, changeCheckout } = useContext(
+    BasketContext
+  ) as BasketContextType;
   const categoriesList = useAppSelector((state) => state.categories.categories);
   let isLoggedIn = useAppSelector((state) => state.user.result);
   const userInformation = useAppSelector((state) => state.user.result);
@@ -60,6 +62,10 @@ const Header: React.FC = () => {
     dispatch(errorsActions.errorUserLoggedIn(false));
     dispatch(errorsActions.errorUserCreation(""));
   };
+  const handleClick = () => {
+    changeCheckout();
+    navigate(`/users/${isLoggedIn._id}/basket`);
+  };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
@@ -80,6 +86,23 @@ const Header: React.FC = () => {
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  if (isCheckout) {
+    return (
+      <section className='section__margin header__checkout'>
+        <div onClick={() => handleClick()}>
+          <BsArrowLeft />
+          <p>Back to shopping bag</p>
+        </div>
+        <div className='checkout__logo'>
+          <span>
+            <p>E</p>
+            <p>.com</p>
+          </span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <div className='header section__margin'>
