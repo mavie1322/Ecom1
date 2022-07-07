@@ -1,9 +1,17 @@
-import { UserDetails, User, BasketItem } from "../models";
+import {
+  UserDetails,
+  User,
+  BasketItem,
+  Address,
+  AddressDelivery,
+} from "../models";
 import {
   addItemToBasketApi,
   changeItemQuantityApi,
   createUser,
   deleteItemInBasketApi,
+  editBillingAddressApi,
+  editDeliveryAddressApi,
   logInUser,
 } from "../services/api";
 import { errorsActions } from "../store/errors-slices";
@@ -79,6 +87,37 @@ export const changeItemQuantity = (
     try {
       const newUserProfile = await changeItemQuantityApi(
         { itemQuantity },
+        userId
+      );
+      dispatch(userActions.storeUser(newUserProfile));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editBillingAddress = (billingAddress: Address, userId: string) => {
+  return async (dispatch: any) => {
+    try {
+      const newUserProfile = await editBillingAddressApi(
+        { billingAddress },
+        userId
+      );
+      dispatch(userActions.storeUser(newUserProfile));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editDeliveryAddress = (
+  deliveryAddress: AddressDelivery,
+  userId: string
+) => {
+  return async (dispatch: any) => {
+    try {
+      const newUserProfile = await editDeliveryAddressApi(
+        { deliveryAddress },
         userId
       );
       dispatch(userActions.storeUser(newUserProfile));
