@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-width: 350px;
 }
 
 .header__navbar-container {
@@ -78,11 +79,53 @@
 .header__icons-size {
   font-size: 2rem;
 }
+.header__checkout div:first-child {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  width: 180px;
+  cursor: pointer;
+}
+.header__checkout div:first-child > p {
+  padding-left: 0.5rem;
+}
+.header__checkout div:first-child:hover {
+  text-decoration: underline;
+}
+.checkout__logo span {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  min-width: 340px;
+}
+
+.checkout__logo p:first-child {
+  transform: rotate(-35deg);
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 50px;
+  color: rgb(255, 55, 0);
+}
+
+.checkout__logo p:last-child {
+  display: flex;
+  font-size: 10px;
+  padding-top: 35px;
+  color: orangered;
+}
 
 .header__logo span,
 .header__small-logo span {
   display: flex;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 
 .header__logo p:first-child,
