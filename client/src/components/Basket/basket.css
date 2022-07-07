@@ -5,6 +5,7 @@
   align-items: center;
   justify-items: center;
   margin: 0 auto;
+  min-width: 340px;
 }
 
 .basket__title {
@@ -12,10 +13,9 @@
   font-weight: 700;
   font-size: 40px;
   line-height: 20px;
-
   text-align: center;
-  padding-bottom: 2.5rem;
-  width: 100%;
+  padding-bottom: 2rem;
+  margin: 2rem 0 3rem;
 }
 .basket__container {
   width: 100%;
@@ -37,10 +37,15 @@
   height: 175px;
 }
 
-.basket__items-container img {
-  box-sizing: border-box;
+.basket__link {
   width: 135px;
   height: 98.5%;
+}
+
+.basket__items-container__img {
+  box-sizing: border-box;
+  width: 135px;
+  height: 100%;
 }
 
 .basket__items-container__details {
@@ -49,7 +54,7 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 1rem 2rem 0 2rem;
-  background: rgb(246, 246, 241);
+  background: var(--background-color);
 }
 
 .basket__items-container__details-header {
@@ -99,7 +104,7 @@
 .basket__empty {
   text-align: start;
   padding: 2.3rem;
-  background: rgb(246, 246, 241);
+  background: var(--background-color);
 
   font-family: var(--font-family);
   font-weight: 700;
@@ -112,12 +117,13 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background: rgb(246, 246, 241);
+  background: var(--background-color);
   height: 900px;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
   z-index: 0;
+  min-width: 250px;
 }
 
 .basket__discount {
@@ -192,6 +198,10 @@
   text-align: justify;
   margin: 1.5rem 0 0.25rem 0;
 }
+.basket__checkout {
+  display: flex;
+  flex-direction: column;
+}
 
 @media screen and (max-width: 1500px) {
   .basket {
@@ -204,9 +214,12 @@
     grid-template-columns: 75px 75px;
     column-gap: 15px;
   }
+  .basket__cost {
+    flex: 1.2;
+  }
 }
 
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 878px) {
   .basket__container {
     flex-direction: column;
   }
@@ -214,6 +227,7 @@
   .basket__title {
     font-size: 35px;
     line-height: 30px;
+    margin: 1rem 0 2rem;
   }
 
   .basket__items {
@@ -241,5 +255,33 @@
   }
   .basket__empty {
     padding-left: 1rem;
+  }
+}
+@media screen and (max-width: 660px) {
+  .basket__container {
+    padding: 0;
+  }
+  .basket__title {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .basket__container,
+  .basket {
+    margin: 0 auto;
+    padding: 0;
+  }
+  .basket__title {
+    padding: 0;
+    margin: 0 auto 2rem;
+    font-size: 30px;
+    min-width: 200px;
+  }
+  .basket__items-container {
+    margin: 0rem auto 1rem;
+  }
+  .basket__items-container__details {
+    padding: 1rem 0.5rem 0 0.5rem;
   }
 }
