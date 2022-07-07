@@ -14,7 +14,15 @@ const initialUserProfileState: User = {
       postcode: "",
       country: "",
     },
-    delivery_address: [],
+    delivery_address: {
+      first_name: "",
+      last_name: "",
+      street_address: "",
+      flat_number: "",
+      city: "",
+      postcode: "",
+      country: "",
+    },
     basket: [],
     orders: [],
     _id: "",
@@ -32,17 +40,6 @@ export const userSlice = createSlice({
       state.result = action.payload.result;
       state.token = action.payload.token;
     },
-    // // editUser() { },
-    // updateBasket(state, action: PayloadAction<User>) {
-    //   localStorage.setItem("user", JSON.stringify({ ...action.payload }));
-    //   state = {
-    //     ...state,
-    //     result: {
-    //       ...state.result,
-    //       basket: [...state.result.basket, ...action.payload.result.basket],
-    //     },
-    //   };
-    // },
   },
 });
 
