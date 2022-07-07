@@ -8,6 +8,7 @@ import Profile from "./components/Profile/Profile";
 import Basket from "./components/Basket/Basket";
 import Orders from "./components/Orders/Orders";
 import SingleItem from "./components/SingleItem/SingleItem";
+import Checkout from "./components/Checkout/Checkout";
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
         <Route path='/users/:id' element={<Profile />}></Route>
         <Route path='/users/:id/basket' element={<Basket />}></Route>
         <Route path='/users/:id/orders' element={<Orders />}></Route>
+        <Route path='/users/:id/checkout' element={<Checkout />}></Route>
       </Routes>
-
       <Footer />
     </Router>
   );
