@@ -46,15 +46,6 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
     clear();
   };
 
-  useEffect(() => {
-    if (itemsInBasket.length > 0) {
-      setUserDetails((previousDetails) => {
-        const newDetails = { ...previousDetails, basket: [...itemsInBasket] };
-        return newDetails;
-      });
-    }
-  }, [itemsInBasket]);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserDetails({ ...userDetails, [event.target.name]: event.target.value });
   };
@@ -75,6 +66,15 @@ const SignIn: React.FC<Props> = ({ togglePopup }) => {
     dispatch(errorsActions.errorUserCreation(""));
     dispatch(errorsActions.errorUserLoggedIn(false));
   };
+
+  useEffect(() => {
+    if (itemsInBasket.length > 0) {
+      setUserDetails((previousDetails) => {
+        const newDetails = { ...previousDetails, basket: [...itemsInBasket] };
+        return newDetails;
+      });
+    }
+  }, [itemsInBasket]);
 
   return (
     <div className='popup-box'>
