@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BasketItem, UserDetails } from "../models";
+import { Address, AddressDelivery, BasketItem, UserDetails } from "../models";
 
 const API = axios.create({
   baseURL: "http://localhost:5000",
@@ -60,5 +60,21 @@ export const changeItemQuantityApi = async (
   userId: string
 ) => {
   const res = await API.patch(`/users/${userId}/basket`, body);
+  return res.data;
+};
+
+export const editBillingAddressApi = async (
+  body: { billingAddress: Address },
+  userId: string
+) => {
+  const res = await API.patch(`/users/${userId}/checkout`, body);
+  return res.data;
+};
+
+export const editDeliveryAddressApi = async (
+  body: { deliveryAddress: AddressDelivery },
+  userId: string
+) => {
+  const res = await API.patch(`/users/${userId}/checkout`, body);
   return res.data;
 };
