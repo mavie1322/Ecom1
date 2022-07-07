@@ -4,21 +4,16 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import "./basket.css";
 
 import { changeItemQuantity, deleteItem } from "../../actions/user-actions";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import BasketCost from "../../containers/BasketCost";
 
 const Basket = () => {
   const { id } = useParams<string>();
   const userBasket = useAppSelector((state) => state.user.result.basket);
   const [itemQuantity, setItemQuantity] = useState<[number, string]>([0, ""]);
   const [itemToDelete, setItemToDelete] = useState<string>("");
-  const delivery: number = 25.99;
-  const orderValue: number = userBasket.reduce((total, item) => {
-    total += item.item_basket.price * item.quantity_ordered;
-    return total;
-  }, 0);
-  const dispatch = useAppDispatch();
 
-  const handleCheckout = () => {};
+  const dispatch = useAppDispatch();
 
   const handleChangeQuantity = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -56,7 +51,13 @@ const Basket = () => {
                 item_basket;
               return (
                 <div className='basket__items-container' key={_id}>
-                  <img src={img_url} alt={item_name} />
+                  <Link to={`/products/${_id}`} className='link basket__link'>
+                    <img
+                      src={img_url}
+                      alt={item_name}
+                      className='basket__items-container__img'
+                    />
+                  </Link>
                   <div className='basket__items-container__details'>
                     <div className='basket__items-container__details-header'>
                       <span>
@@ -99,54 +100,7 @@ const Basket = () => {
           )}
         </div>
         {/* total cost of items in basket */}
-        <div className='basket__cost'>
-          <span className='basket__discount'>
-            <p>Discounts</p>
-            <p>Apply discount</p>
-          </span>
-          <div className='basket__cost-container'>
-            <span>
-              <p>Order value</p>
-              <p>£{orderValue.toFixed(2)}</p>
-            </span>
-            {/* if there is items in the basket delivery cost will be add to the total cost */}
-            {userBasket.length !== 0 && (
-              <span>
-                <p>Delivery</p>
-                {orderValue > 2000 ? <p>FREE</p> : <p>£{delivery}</p>}
-              </span>
-            )}
-          </div>
-          {/* show the total cost */}
-          <span className='basketMenu__total-value'>
-            <p>Total</p>
-            {userBasket.length === 0 || orderValue > 2000 ? (
-              <p>£{orderValue.toFixed(2)}</p>
-            ) : (
-              <p>£{(delivery + orderValue).toFixed(2)}</p>
-            )}
-          </span>
-
-          {/* display redirect buttons to checkout component */}
-          <button
-            type='button'
-            className='basketMenu__checkout font-styling'
-            onClick={() => handleCheckout()}>
-            Continue to checkout
-          </button>
-          <div className='basket__transaction-container'>
-            <p>We accept</p>
-            <p>Credit cards</p>
-          </div>
-          {/*important information */}
-          <p className='basket__important'>
-            Prices and delivery costs are not confirmed until you've reached the
-            checkout.
-          </p>
-          <p className='basket__important'>
-            28 days withdrawal and free returns.
-          </p>
-        </div>{" "}
+        <BasketCost />
       </div>
     </div>
   );
