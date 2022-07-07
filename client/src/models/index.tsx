@@ -49,6 +49,16 @@ export type Address = {
   country: string;
 };
 
+export type AddressDelivery = {
+  first_name: string;
+  last_name: string;
+  street_address: string;
+  flat_number: string;
+  city: string;
+  postcode: string;
+  country: string;
+};
+
 export type UserDetails = {
   first_name: string;
   last_name: string;
@@ -64,7 +74,7 @@ export interface User {
     email: string;
     password: string;
     address: Address;
-    delivery_address: Address[];
+    delivery_address: AddressDelivery;
     basket: BasketItem[];
     orders: string[];
     _id: string;
@@ -89,6 +99,8 @@ export type Errors = {
 
 export type BasketContextType = {
   itemsInBasket: BasketItem[];
+  isCheckout: boolean;
   addToBasket: (item: BasketItem) => void;
+  changeCheckout: () => void;
   clear: () => void;
 };
