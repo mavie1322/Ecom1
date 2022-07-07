@@ -95,36 +95,6 @@ export const signUpUser = async (req, res) => {
   }
 };
 
-export const addToBasket = async (req, res) => {
-  //   const email = req.email;
-  //   const id = req.userId;
-  //   try {
-  //     const profile = await User.findOne({ email });
-  //     const existInBasketSample = profile.basket.find(
-  //       (product) => product.item_basket._id === item.item_basket._id
-  //     );
-  //     if (existInBasketSample) {
-  //       existInBasketSample.quantity_ordered += item.quantity_ordered;
-  //     } else {
-  //       profile.basket.push(item);
-  //     }
-  //     const updatedBasket = await User.findByIdAndUpdate(id, profile, {
-  //       new: true,
-  //     });
-  //     const token = jwt.sign(
-  //       {
-  //         email: updatedBasket.email,
-  //         id: updatedBasket._id,
-  //       },
-  //       process.env.SECRET,
-  //       { expiresIn: "1h" }
-  //     );
-  //     res.send({ result: updatedBasket, token });
-  //   } catch (error) {
-  //     res.status(500).send({ message: "Something went wrong" });
-  //   }
-};
-
 export const updateBasket = async (req, res) => {
   const userId = req.userId;
   const email = req.email;
@@ -155,7 +125,11 @@ export const updateBasket = async (req, res) => {
         new: true,
       });
     } else if (req.body.hasOwnProperty("item")) {
-      //add an item in user basket
+      /*add an item in user basket:
+      check if item is in the basket
+      if true increase the quantity and quantity should not be more than 10
+      otherwise add it
+      */
       const itemToAdd = req.body.item;
       const isItemExist = isUserExist.basket.find(
         (item) => item.item_basket._id === itemToAdd.item_basket._id
@@ -190,4 +164,38 @@ export const updateBasket = async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "Something went wrong" });
   }
+};
+
+export const editAddresses = async (req, res) => {
+  const userId = req.userId;
+  const email = req.email;
+
+  try {
+    const isUserExist = await User.findOne({ email });
+    let updatedBasket;
+    if (req.body.hasOwnProperty("billingAddress")) {
+      // if (!isUserExist.address.street_address) {
+      isUserExist.address = { ...req.body.billingAddress };
+      // }
+      updatedBasket = await User.findByIdAndUpdate(userId, isUserExist, {
+        new: true,
+      });
+    } else if (req.body.hasOwnProperty("deliveryAddress")) {
+      isUserExist.delivery_address = { ...req.body.deliveryAddress };
+      // }
+      updatedBasket = await User.findByIdAndUpdate(userId, isUserExist, {
+        new: true,
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        email: updatedBasket.email,
+        id: updatedBasket._id,
+      },
+      process.env.SECRET,
+      { expiresIn: "1h" }
+    );
+    res.send({ result: updatedBasket, token });
+  } catch (error) {}
 };
