@@ -51,7 +51,7 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
                       </div>
                       <div className='basketSubmenu__info'>
                         <span>{item_name}</span>
-                        <span>£{price}</span>
+                        <span>£{(price / 100).toFixed(2)}</span>
                         <span>
                           Quantity: {"   "}
                           {quantity_ordered}
