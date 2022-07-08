@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-  first_name: String,
-  last_name: String,
+  first_name: { type: String, required: true },
+  last_name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: String,
+  password: { type: String, required: true },
   address: {
     street_address: String,
     flat_number: String,
@@ -25,11 +25,11 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
-  orders: {
-    type: [mongoose.Schema.Types.ObjectId],
-    default: [],
-    ref: "orders",
-  },
+  // orders: {
+  //   type: [mongoose.Schema.Types.ObjectId],
+  //   default: [],
+  //   ref: "orders",
+  // },
 });
 
 const UsersMessage = mongoose.model("users", userSchema);
