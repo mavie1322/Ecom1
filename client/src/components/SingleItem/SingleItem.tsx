@@ -54,7 +54,7 @@ const SingleItem = () => {
       </div>
       <div className='singleItem__container-info'>
         <span>{singleItemDetails.item_name}</span>
-        <span>£ {singleItemDetails.price}</span>
+        <span>£ {(singleItemDetails.price / 100).toFixed(2)}</span>
         <hr />
         <span>{singleItemDetails.description}</span>
         <hr />
