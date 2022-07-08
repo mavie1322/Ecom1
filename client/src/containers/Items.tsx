@@ -16,7 +16,7 @@ const Items: React.FC<Props> = ({ itemsList }) => {
             <div className='singleItem'>
               <img src={img_url} alt={item_name} />
               <p>{item_name}</p>
-              <p>£ {price}</p>
+              <p>£ {(price / 100).toFixed(2)}</p>
             </div>
           </Link>
         );
