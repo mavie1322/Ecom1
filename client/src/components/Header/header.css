@@ -74,6 +74,7 @@
   font-size: 18px;
   line-height: 25px;
   margin-left: 5px;
+  text-transform: capitalize;
 }
 
 .header__icons-size {
