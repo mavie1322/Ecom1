@@ -78,3 +78,11 @@ export const editDeliveryAddressApi = async (
   const res = await API.patch(`/users/${userId}/checkout`, body);
   return res.data;
 };
+
+export const payWithStripe = async (body: {
+  basketItems: BasketItem[];
+  userId: string;
+}) => {
+  const res = await API.post("/stripe/create-checkout-session", body);
+  return res.data;
+};
