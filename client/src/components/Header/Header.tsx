@@ -155,7 +155,7 @@ const Header: React.FC = () => {
             <BsPerson className='header__icons-size' />
             {/* if user logged in his name should appear or sign in */}
             {isLoggedIn._id ? (
-              <p>{`${userInformation.first_name} ${userInformation.last_name}`}</p>
+              <p>{`${userInformation.first_name}`}</p>
             ) : (
               <p>Sign In</p>
             )}
