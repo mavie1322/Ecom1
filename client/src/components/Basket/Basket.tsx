@@ -62,7 +62,7 @@ const Basket = () => {
                     <div className='basket__items-container__details-header'>
                       <span>
                         <p>{item_name}</p>
-                        <p>£{price}</p>
+                        <p>£{(price / 100).toFixed(2)}</p>
                       </span>
                       <RiDeleteBin5Line
                         className='basket__items-container__details-icon'
@@ -76,7 +76,7 @@ const Basket = () => {
                       </span>
                       <span>
                         <p>Total:</p>
-                        <p>£{price * quantity_ordered}</p>
+                        <p>£{((price / 100) * quantity_ordered).toFixed(2)}</p>
                       </span>
                     </div>
                     <select
