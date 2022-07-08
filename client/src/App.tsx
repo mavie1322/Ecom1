@@ -9,6 +9,7 @@ import Basket from "./components/Basket/Basket";
 import Orders from "./components/Orders/Orders";
 import SingleItem from "./components/SingleItem/SingleItem";
 import Checkout from "./components/Checkout/Checkout";
+import SucceedCheckout from "./components/Checkout/CheckoutSuccessful/SucceedCheckout";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         <Route path='/users/:id/basket' element={<Basket />}></Route>
         <Route path='/users/:id/orders' element={<Orders />}></Route>
         <Route path='/users/:id/checkout' element={<Checkout />}></Route>
+        <Route
+          path='/users/:id/checkout-success'
+          element={<SucceedCheckout />}></Route>
       </Routes>
       <Footer />
     </Router>
