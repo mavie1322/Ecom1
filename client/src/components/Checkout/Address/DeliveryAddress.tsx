@@ -47,9 +47,7 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
   }, [user.delivery_address]);
 
   return (
-    <form
-      className='checkout__form'
-      onSubmit={(e) => handleSubmitDeliveryAddress(e)}>
+    <form onSubmit={(e) => handleSubmitDeliveryAddress(e)}>
       <Input
         label={"First name"}
         isRequired={true}
