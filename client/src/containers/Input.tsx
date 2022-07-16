@@ -22,7 +22,7 @@ const Input: React.FC<Props> = ({
     <div className='sign-in__inputs'>
       <span>
         <label>{label}</label>
-        <p>{isRequired ? "*" : ""}</p>
+        <p>&nbsp;{isRequired ? "*" : ""}</p>
       </span>
       <input
         required={isRequired}
