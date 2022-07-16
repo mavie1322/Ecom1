@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import "./basket.css";
@@ -76,7 +76,10 @@ const Basket = () => {
                       </span>
                       <span>
                         <p>Total:</p>
-                        <p>£{((price / 100) * quantity_ordered).toFixed(2)}</p>
+                        <p>
+                          &emsp;&emsp;£
+                          {((price / 100) * quantity_ordered).toFixed(2)}
+                        </p>
                       </span>
                     </div>
                     <select
