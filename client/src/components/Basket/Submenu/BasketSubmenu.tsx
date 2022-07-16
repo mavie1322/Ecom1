@@ -11,18 +11,26 @@ type Props = {
 
 const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
   const userLoggedIn = useAppSelector((state) => state.user.result);
-  const { itemsInBasket } = useContext(BasketContext) as BasketContextType;
+  const { itemsInBasket, changeCheckout } = useContext(
+    BasketContext
+  ) as BasketContextType;
   const [productsInBasket, setProductsInBasket] = useState<BasketItem[]>([]);
-  const delivery: number = 25.99;
+  const delivery: number = 3.99;
   const navigate = useNavigate();
-  let orderValue: number = productsInBasket.reduce((total, item) => {
-    total += item.item_basket.price * item.quantity_ordered;
-    return total;
-  }, 0);
+  let orderValue: number =
+    productsInBasket.reduce((total, item) => {
+      total += item.item_basket.price * item.quantity_ordered;
+      return total;
+    }, 0) / 100;
 
   const redirectToBasketHandler = () => {
     if (userLoggedIn._id) navigate(`/users/${userLoggedIn._id}/basket`);
     else togglePopup();
+  };
+
+  const handleCheckout = () => {
+    navigate(`/users/${userLoggedIn._id}/checkout`);
+    changeCheckout();
   };
 
   useEffect(() => {
@@ -75,14 +83,14 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
             {productsInBasket.length !== 0 && (
               <span>
                 <p>Delivery</p>
-                {orderValue > 2000 ? <p>FREE</p> : <p>£{delivery}</p>}
+                {<p>£{delivery}</p>}
               </span>
             )}
           </div>
           {/* show the total cost */}
           <span className='basketMenu__total-value'>
             <p>Total</p>
-            {productsInBasket.length === 0 || orderValue > 2000 ? (
+            {productsInBasket.length === 0 ? (
               <p>£{orderValue.toFixed(2)}</p>
             ) : (
               <p>£{(delivery + orderValue).toFixed(2)}</p>
@@ -91,7 +99,11 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
         </div>
       </div>
       {/* display redirect buttons to checkout or basket component */}
-      <button className='basketMenu__checkout font-styling'>Checkout</button>
+      <button
+        className='basketMenu__checkout font-styling'
+        onClick={() => handleCheckout()}>
+        Checkout
+      </button>
       <button
         className='basketMenu__basket font-styling'
         onClick={() => redirectToBasketHandler()}>
