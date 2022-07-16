@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Params } from "react-router-dom";
 import { Address, AddressDelivery, BasketItem, UserDetails } from "../models";
 
 const API = axios.create({
@@ -84,5 +85,11 @@ export const payWithStripe = async (body: {
   userId: string;
 }) => {
   const res = await API.post("/stripe/create-checkout-session", body);
+  return res.data;
+};
+
+export const getUserDetails = async (userId: Readonly<Params<string>>) => {
+  console.log(userId);
+  const res = await API.get(`users/${userId.id}`);
   return res.data;
 };
