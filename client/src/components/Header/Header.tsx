@@ -114,16 +114,16 @@ const Header: React.FC = () => {
               <RiCloseLine
                 className='header__navbar-menu_icons'
                 color='#000'
-                size={27}
+                size={33}
                 onClick={() =>
                   setToggleMenu((previousToggle) => !previousToggle)
                 }
               />
             ) : (
               <RiMenu2Line
-                className='header__navbar-menu_icons'
+                className='header__navbar-menu_icons '
                 color='#000'
-                size={27}
+                size={33}
                 onClick={() =>
                   setToggleMenu((previousToggle) => !previousToggle)
                 }
@@ -152,7 +152,7 @@ const Header: React.FC = () => {
             onMouseOver={() => setIsHoveringSignIn(true)}
             onMouseOut={() => setIsHoveringSignIn(false)}
             onClick={() => togglePopup()}>
-            <BsPerson className='header__icons-size' />
+            <BsPerson size={35} />
             {/* if user logged in his name should appear or sign in */}
             {isLoggedIn._id ? (
               <p>{`${userInformation.first_name}`}</p>
@@ -175,7 +175,7 @@ const Header: React.FC = () => {
           <div
             className='header__icons-container'
             onClick={() => setIsSearching(!isSearching)}>
-            <IoSearchOutline className='header__icons-size' />
+            <IoSearchOutline size={35} />
             <p>Search</p>
           </div>
           {isSearching && (
@@ -199,7 +199,7 @@ const Header: React.FC = () => {
                   className='link header__icons-container header__navbar-menu'
                   onMouseOver={() => setIsHoveringBasket(true)}
                   onMouseOut={() => setIsHoveringBasket(false)}>
-                  <BsBasket3 className='header__icons-size' />
+                  <BsBasket3 size={30} />
                   <p>Basket({basketTotalQuantity})</p>
                 </Link>
               </>
@@ -210,7 +210,7 @@ const Header: React.FC = () => {
                   onMouseOver={() => setIsHoveringBasket(true)}
                   onMouseOut={() => setIsHoveringBasket(false)}
                   onClick={() => togglePopup()}>
-                  <BsBasket3 className='header__icons-size' />
+                  <BsBasket3 size={30} />
                   <p>Basket({basketTotalQuantity})</p>
                 </div>
               </>
