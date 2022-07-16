@@ -51,7 +51,7 @@ export const signInUser = async (req, res) => {
 
     res.status(200).send({ result: loggedInUser, token });
   } catch (error) {
-    res.status(500).send({ message: "Something went wrong" });
+    return res.status(500).send({ message: "Something went wrong" });
   }
 };
 
@@ -197,5 +197,26 @@ export const editAddresses = async (req, res) => {
       { expiresIn: "1h" }
     );
     res.send({ result: updatedBasket, token });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send({ message: "Something went wrong" });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const user = await User.findById(req.params.id);
+    console.log(user);
+    const token = jwt.sign(
+      {
+        email: user.email,
+        id: user._id,
+      },
+      process.env.SECRET,
+      { expiresIn: "1h" }
+    );
+    res.send({ result: user, token });
+  } catch (error) {
+    console.log(error);
+  }
 };
