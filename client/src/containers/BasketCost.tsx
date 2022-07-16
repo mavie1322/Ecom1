@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { payOrder } from "../actions/user-actions";
+import { payOrder } from "../actions/order-actions";
 import { BasketContext } from "../context/basket";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { BasketContextType } from "../models";
