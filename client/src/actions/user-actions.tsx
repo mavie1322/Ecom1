@@ -1,3 +1,4 @@
+import { Params } from "react-router-dom";
 import {
   UserDetails,
   User,
@@ -13,7 +14,7 @@ import {
   editBillingAddressApi,
   editDeliveryAddressApi,
   logInUser,
-  payWithStripe,
+  getUserDetails,
 } from "../services/api";
 import { errorsActions } from "../store/errors-slices";
 import { userActions } from "../store/user-slices";
@@ -38,6 +39,17 @@ export const signIn = (
       dispatch(errorsActions.errorUserLoggedIn(false));
     } catch (err: any) {
       dispatch(errorsActions.errorUserLoggedIn(true));
+    }
+  };
+};
+
+export const getUser = (id: Readonly<Params<string>>) => {
+  return async (dispatch: any) => {
+    try {
+      const newUserProfile = await getUserDetails(id);
+      dispatch(userActions.storeUser(newUserProfile));
+    } catch (error) {
+      console.log(error);
     }
   };
 };
@@ -122,17 +134,6 @@ export const editDeliveryAddress = (
         userId
       );
       dispatch(userActions.storeUser(newUserProfile));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const payOrder = (basketItems: BasketItem[], userId: string) => {
-  return async (dispatch: any) => {
-    try {
-      const order = await payWithStripe({ basketItems, userId });
-      if (order.url) window.location.href = order.url;
     } catch (error) {
       console.log(error);
     }
