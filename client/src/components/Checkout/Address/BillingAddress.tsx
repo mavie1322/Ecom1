@@ -45,9 +45,7 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
   }, [user.address]);
 
   return (
-    <form
-      className='checkout__form'
-      onSubmit={(e) => handleSubmitBillingAddress(e)}>
+    <form onSubmit={(e) => handleSubmitBillingAddress(e)}>
       <Input
         label={"Address"}
         isRequired={true}
