@@ -1,3 +1,6 @@
+#checkout__title {
+  margin-top: 0.5rem;
+}
 .checkout {
   flex: 2;
   display: flex;
@@ -20,21 +23,27 @@
 
 .primary__information h3 {
   padding-bottom: 1rem;
+  /* font-size: 20px; */
+}
+
+.primary__information span p:first-child,
+.primary__information span p:last-child,
+.checkout__container-billing span p:first-child,
+.checkout__container-billing span p:last-child {
+  text-align: start;
 }
 
 .checkout__container__title {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.5rem;
 }
 
 h4 {
   margin: 1rem 0;
 }
-
-.checkout__form {
-  margin: 1.5rem 0;
+.checkout__icons:hover {
+  cursor: pointer;
 }
 
 .sign-in__become-member {
@@ -55,5 +64,11 @@ form > div > span:last-child p:first-child {
 @media screen and (max-width: 800px) {
   .checkout {
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  #checkout__title {
+    margin-top: 0rem;
   }
 }
