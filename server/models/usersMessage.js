@@ -25,11 +25,11 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
-  // orders: {
-  //   type: [mongoose.Schema.Types.ObjectId],
-  //   default: [],
-  //   ref: "orders",
-  // },
+  orders: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: "orders",
+  },
 });
 
 const UsersMessage = mongoose.model("users", userSchema);
