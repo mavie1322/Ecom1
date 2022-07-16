@@ -11,12 +11,14 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const YOUR_DOMAIN = process.env.LOCALHOST;
 
 router.post("/create-checkout-session", async (req, res) => {
+  //compress the basket because stripe customer metadata need to be a string of max 500 characters
   const newBasket = req.body.basketItems.map((item) => {
     return {
       item: item.item_basket._id,
       qty: item.quantity_ordered,
     };
   });
+  //create stripe customer
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
@@ -44,7 +46,7 @@ router.post("/create-checkout-session", async (req, res) => {
   });
 
   const session = await stripe.checkout.sessions.create({
-    // payment_method_types: ["card"],
+    payment_method_types: ["card"],
     // shipping_address_collection: {
     //   allowed_countries: ["GB"],
     // },
@@ -102,7 +104,10 @@ const createOrder = async (customer, data) => {
   try {
     const savedOrder = await newOrder.save();
     // console.log("processed order >>>>", savedOrder);
-    return savedOrder;
+    user.basket = [];
+    user.orders.push(savedOrder._id);
+    const updatedUser = await Users.findByIdAndUpdate(id, user, { new: true });
+    console.log("user >>>>", updatedUser);
     //send email with order
   } catch (error) {
     console.log(error);
@@ -121,7 +126,7 @@ router.post(
     // const sig = request.headers["stripe-signature"];
     let data;
     let eventType;
-    let order;
+
     const payload = request.body;
     const payloadString = JSON.stringify(payload, null, 2);
     const header = stripe.webhooks.generateTestHeaderString({
@@ -155,13 +160,14 @@ router.post(
       stripe.customers
         .retrieve(data.customer)
         .then((customer) => {
-          order = createOrder(customer, data);
+          createOrder(customer, data);
         })
         .catch((error) => console.log(error.message));
     }
-    console.log(order);
+    // console.log(order, "<<<<");
     // Return a 200 response to acknowledge receipt of the event
-    response.send({ newOrder: order }).end();
+    // response.status(200).send({ newOrder: order })
+    response.send().end();
   }
 );
 
