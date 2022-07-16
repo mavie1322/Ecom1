@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import "./checkout.css";
 import { RiEdit2Line } from "react-icons/ri";
@@ -7,14 +7,18 @@ import BillingAddress from "./Address/BillingAddress";
 import BasketCost from "../../containers/BasketCost";
 import DeliveryAddress from "./Address/DeliveryAddress";
 import AddressContainer from "../../containers/AddressContainer";
+import { BasketContext } from "../../context/basket";
+import { BasketContextType } from "../../models";
 
 const Checkout = () => {
+  const { isCheckout } = useContext(BasketContext) as BasketContextType;
   const user = useAppSelector((state) => state.user.result);
   const [isEditingBillingAddress, setIsEditingBillingAddress] =
     useState<boolean>(false);
   const [isEditingDeliveryAddress, setIsEditingDeliveryAddress] =
     useState<boolean>(false);
 
+  console.log(isCheckout);
   const handleEditBillingAddress = () => {
     setIsEditingBillingAddress(!isEditingBillingAddress);
   };
@@ -25,12 +29,14 @@ const Checkout = () => {
 
   return (
     <div className='basket'>
-      <div className='basket__title'>Checkout</div>
+      <div className='basket__title' id='checkout__title'>
+        Checkout
+      </div>
       <div className='basket__container'>
         <div className='checkout'>
           <div className='checkout__container primary__information'>
             <h3>My information</h3>
-            <span>
+            <span className='primary__information-details'>
               <p>{`${user.first_name} ${user.last_name}`}</p>
               <p>{user.email}</p>
             </span>
@@ -40,13 +46,19 @@ const Checkout = () => {
             <span className='checkout__container__title'>
               <h3>Billing address</h3>
               {isEditingBillingAddress ? (
-                <AiOutlineClose onClick={() => handleEditBillingAddress()} />
+                <AiOutlineClose
+                  onClick={() => handleEditBillingAddress()}
+                  className='checkout__icons'
+                />
               ) : (
-                <RiEdit2Line onClick={() => handleEditBillingAddress()} />
+                <RiEdit2Line
+                  onClick={() => handleEditBillingAddress()}
+                  className='checkout__icons'
+                />
               )}
             </span>
             {isEditingBillingAddress || user.address.street_address === "" ? (
-              <section>
+              <section className='checkout__container-billing'>
                 {" "}
                 <h4>Enter your billing address</h4>
                 <span>
@@ -70,9 +82,15 @@ const Checkout = () => {
             <span className='checkout__container__title'>
               <h3>Delivery address</h3>
               {isEditingDeliveryAddress ? (
-                <AiOutlineClose onClick={() => handleEditDeliveryAddress()} />
+                <AiOutlineClose
+                  onClick={() => handleEditDeliveryAddress()}
+                  className='checkout__icons'
+                />
               ) : (
-                <RiEdit2Line onClick={() => handleEditDeliveryAddress()} />
+                <RiEdit2Line
+                  onClick={() => handleEditDeliveryAddress()}
+                  className='checkout__icons'
+                />
               )}
             </span>
             {isEditingDeliveryAddress ||
