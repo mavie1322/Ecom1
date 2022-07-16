@@ -6,7 +6,6 @@ export const payOrder = (basketItems: BasketItem[], userId: string) => {
     try {
       const order = await payWithStripe({ basketItems, userId });
       if (order.url) window.location.href = order.url;
-      console.log(order);
     } catch (error) {
       console.log(error);
     }
