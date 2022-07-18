@@ -26,7 +26,9 @@ const Profile = () => {
       <div className='profile__account'>
         <div>
           <span className='profile__account-span'>
-            <p>Hi {`${user.first_name} ${user.last_name}`}</p>
+            <p>
+              Hi <strong>{`${user.first_name} ${user.last_name}`}</strong>
+            </p>
             <FiSettings className='profile__account-span__icon' />
           </span>
           <img
