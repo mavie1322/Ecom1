@@ -8,26 +8,33 @@ import "./succeedCheckout.css";
 
 const SucceedCheckout = () => {
   const id: Readonly<Params<string>> = useParams();
-  const { isCheckout, changeCheckout } = useContext(
-    BasketContext
-  ) as BasketContextType;
+  const { isCheckout, changeCheckout, isDisplayed, changeIsDisplayed } =
+    useContext(BasketContext) as BasketContextType;
   const user = useAppSelector((state) => state.user.result);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  console.log("checkout >>>>>", isCheckout);
-  console.log("user >>>>", user);
+  console.log(">>>", user);
 
   const handleClick = () => {
     navigate("/");
+    changeCheckout();
+    changeIsDisplayed();
   };
 
   useEffect(() => {
-    if (isCheckout === false) {
+    if (isCheckout === false && isDisplayed === false) {
       changeCheckout();
+      changeIsDisplayed();
     }
-
     dispatch(getUser(id));
-  }, [changeCheckout, dispatch, id, isCheckout]);
+  }, [
+    changeCheckout,
+    dispatch,
+    id,
+    isCheckout,
+    isDisplayed,
+    changeIsDisplayed,
+  ]);
 
   return (
     <div className='succeedCheckout section__margin'>
