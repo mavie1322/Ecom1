@@ -6,9 +6,14 @@ export const BasketContext = createContext<BasketContextType | null>(null);
 export const BasketProvider = ({ children }: { children: any }) => {
   const [itemsInBasket, setItemsInBasket] = useState<BasketItem[]>([]);
   const [isCheckout, setCheckout] = useState<boolean>(false);
+  const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
 
   const changeCheckout = () => {
     setCheckout(!isCheckout);
+  };
+
+  const changeIsDisplayed = () => {
+    setIsDisplayed(!isDisplayed);
   };
 
   const addToBasket = (product: BasketItem) => {
@@ -35,7 +40,15 @@ export const BasketProvider = ({ children }: { children: any }) => {
 
   return (
     <BasketContext.Provider
-      value={{ itemsInBasket, addToBasket, clear, isCheckout, changeCheckout }}>
+      value={{
+        itemsInBasket,
+        addToBasket,
+        clear,
+        isCheckout,
+        changeCheckout,
+        isDisplayed,
+        changeIsDisplayed,
+      }}>
       {children}
     </BasketContext.Provider>
   );
