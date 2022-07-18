@@ -62,7 +62,7 @@ span {
 
 @media screen and (max-width: 350px) {
   .succeedCheckout {
-    min-width: 300px;
+    min-width: 340px;
     margin: auto;
     padding: 2rem 0.5rem;
   }
