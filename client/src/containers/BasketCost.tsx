@@ -4,7 +4,6 @@ import { payOrder } from "../actions/order-actions";
 import { BasketContext } from "../context/basket";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { BasketContextType } from "../models";
-import { payWithStripe } from "../services/api";
 
 const BasketCost = () => {
   const user = useAppSelector((state) => state.user.result);
@@ -21,13 +20,21 @@ const BasketCost = () => {
     }, 0) / 100;
 
   const handleCheckout = async () => {
-    if (isCheckout) {
+    if (
+      isCheckout &&
+      (user.address.street_address !== "" ||
+        user.delivery_address.street_address !== "")
+    ) {
       dispatch(payOrder(user.basket, user._id));
-    } else {
+    }
+  };
+  const handleProceedCheckout = () => {
+    if (user.basket.length > 0) {
       navigate(`/users/${user._id}/checkout`);
       changeCheckout();
     }
   };
+
   return (
     <div className='basket__cost'>
       <span className='basket__discount'>
@@ -63,7 +70,24 @@ const BasketCost = () => {
           <button
             type='submit'
             className='basketMenu__checkout font-styling'
-            onClick={() => handleCheckout()}>
+            onClick={() => handleCheckout()}
+            style={{
+              backgroundColor:
+                user.address.street_address === "" ||
+                user.delivery_address.street_address === ""
+                  ? "white"
+                  : "black",
+              color:
+                user.address.street_address === "" ||
+                user.delivery_address.street_address === ""
+                  ? "black"
+                  : "white",
+              cursor:
+                user.address.street_address === "" ||
+                user.delivery_address.street_address === ""
+                  ? "no-drop"
+                  : "pointer",
+            }}>
             Almost done
           </button>{" "}
           <span className='basket__checkout'>
@@ -80,8 +104,13 @@ const BasketCost = () => {
         <>
           <button
             type='button'
-            className='basketMenu__checkout font-styling'
-            onClick={() => handleCheckout()}>
+            className='font-styling'
+            onClick={() => handleProceedCheckout()}
+            style={{
+              backgroundColor: user.basket.length > 0 ? "black" : "white",
+              color: user.basket.length > 0 ? "white" : "black",
+              cursor: user.basket.length === 0 ? "no-drop" : "pointer",
+            }}>
             Continue to checkout
           </button>
           <div className='basket__transaction-container'>
