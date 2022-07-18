@@ -96,19 +96,23 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
               <p>£{(delivery + orderValue).toFixed(2)}</p>
             )}
           </span>
-        </div>
+        </div>{" "}
+        {productsInBasket.length > 0 && (
+          <>
+            {/* display redirect buttons to checkout or basket component */}
+            <button
+              className='basketMenu__checkout font-styling'
+              onClick={() => handleCheckout()}>
+              Checkout
+            </button>
+            <button
+              className='basketMenu__basket font-styling'
+              onClick={() => redirectToBasketHandler()}>
+              Basket
+            </button>
+          </>
+        )}
       </div>
-      {/* display redirect buttons to checkout or basket component */}
-      <button
-        className='basketMenu__checkout font-styling'
-        onClick={() => handleCheckout()}>
-        Checkout
-      </button>
-      <button
-        className='basketMenu__basket font-styling'
-        onClick={() => redirectToBasketHandler()}>
-        Basket
-      </button>
     </div>
   );
 };
