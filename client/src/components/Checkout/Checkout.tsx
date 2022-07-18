@@ -11,14 +11,12 @@ import { BasketContext } from "../../context/basket";
 import { BasketContextType } from "../../models";
 
 const Checkout = () => {
-  const { isCheckout } = useContext(BasketContext) as BasketContextType;
   const user = useAppSelector((state) => state.user.result);
   const [isEditingBillingAddress, setIsEditingBillingAddress] =
     useState<boolean>(false);
   const [isEditingDeliveryAddress, setIsEditingDeliveryAddress] =
     useState<boolean>(false);
 
-  console.log(isCheckout);
   const handleEditBillingAddress = () => {
     setIsEditingBillingAddress(!isEditingBillingAddress);
   };
