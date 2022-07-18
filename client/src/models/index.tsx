@@ -35,6 +35,10 @@ export type BasketItem = {
   quantity_ordered: number;
   // total_price: number;
 };
+export type SecondBasketItem = {
+  item: string;
+  qty: number;
+};
 
 export interface BasketState {
   items: BasketItem[];
@@ -85,11 +89,16 @@ export interface User {
 
 export interface Orders {
   _id: string;
-  items: BasketItem[];
-  total_cost: number;
-  createdAt: Date;
-  buyer: string;
-  delivery_cost: boolean;
+  products: SecondBasketItem[];
+  subtotal: number;
+  total: number;
+  createdAt: string;
+  userId: string;
+  delivery_status: string;
+  payment_status: string;
+  shipping: AddressDelivery;
+  stripeCustomerId: string;
+  __v: number;
 }
 
 export type Errors = {
@@ -100,7 +109,9 @@ export type Errors = {
 export type BasketContextType = {
   itemsInBasket: BasketItem[];
   isCheckout: boolean;
+  isDisplayed: boolean;
   addToBasket: (item: BasketItem) => void;
   changeCheckout: () => void;
   clear: () => void;
+  changeIsDisplayed: () => void;
 };
