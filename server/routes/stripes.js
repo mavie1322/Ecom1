@@ -164,9 +164,7 @@ router.post(
         })
         .catch((error) => console.log(error.message));
     }
-    // console.log(order, "<<<<");
     // Return a 200 response to acknowledge receipt of the event
-    // response.status(200).send({ newOrder: order })
     response.send().end();
   }
 );
