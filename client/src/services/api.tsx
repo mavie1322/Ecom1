@@ -93,3 +93,8 @@ export const getUserDetails = async (userId: Readonly<Params<string>>) => {
   const res = await API.get(`users/${userId.id}`);
   return res.data;
 };
+
+export const fetchOrdersByUser = async (body: { orders: string[] }) => {
+  const res = await API.patch("orders/", body);
+  return res.data;
+};
