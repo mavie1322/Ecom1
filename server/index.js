@@ -9,6 +9,7 @@ import ProductsRoutes from "./routes/products.js";
 import CategoriesRoutes from "./routes/categories.js";
 import UsersRoutes from "./routes/users.js";
 import StripeRoutes from "./routes/stripes.js";
+import OrdersRoutes from "./routes/orders.js";
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors());
 app.use("/products", ProductsRoutes);
 app.use("/categories", CategoriesRoutes);
 app.use("/users", UsersRoutes);
+app.use("/orders", OrdersRoutes);
 app.use("/stripe", StripeRoutes);
 
 mongoose
