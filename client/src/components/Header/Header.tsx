@@ -20,7 +20,7 @@ import { BasketContext } from "../../context/basket";
 import { BasketContextType } from "../../models";
 
 const Header: React.FC = () => {
-  const { itemsInBasket, isCheckout, changeCheckout } = useContext(
+  const { itemsInBasket, isCheckout, changeCheckout, isDisplayed } = useContext(
     BasketContext
   ) as BasketContextType;
   const categoriesList = useAppSelector((state) => state.categories.categories);
@@ -89,12 +89,20 @@ const Header: React.FC = () => {
 
   if (isCheckout) {
     return (
-      <section className='section__margin header__checkout'>
-        <div onClick={() => handleClick()}>
-          <BsArrowLeft />
-          <p>Back to shopping bag</p>
-        </div>
-        <div className='checkout__logo'>
+      <section id='checkout'>
+        {isDisplayed ? (
+          <></>
+        ) : (
+          <div
+            onClick={() => handleClick()}
+            className='header__checkout section__margin'>
+            <BsArrowLeft />
+            <p>Back to shopping bag</p>
+          </div>
+        )}
+        <div
+          className='checkout__logo'
+          style={{ marginTop: isDisplayed ? "3rem" : "1rem" }}>
           <span>
             <p>E</p>
             <p>.com</p>
