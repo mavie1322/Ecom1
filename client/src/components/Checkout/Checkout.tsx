@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import "./checkout.css";
 import { RiEdit2Line } from "react-icons/ri";
@@ -7,8 +7,6 @@ import BillingAddress from "./Address/BillingAddress";
 import BasketCost from "../../containers/BasketCost";
 import DeliveryAddress from "./Address/DeliveryAddress";
 import AddressContainer from "../../containers/AddressContainer";
-import { BasketContext } from "../../context/basket";
-import { BasketContextType } from "../../models";
 
 const Checkout = () => {
   const user = useAppSelector((state) => state.user.result);
