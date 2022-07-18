@@ -78,7 +78,7 @@
   text-transform: capitalize;
 }
 
-.header__checkout div:first-child {
+.header__checkout {
   display: flex;
   align-items: center;
   font-family: var(--font-family);
@@ -88,11 +88,14 @@
   width: 180px;
   cursor: pointer;
 }
-.header__checkout div:first-child > p {
+.header__checkout p {
   padding-left: 0.5rem;
 }
-.header__checkout div:first-child:hover {
+.header__checkout:hover {
   text-decoration: underline;
+}
+#checkout {
+  width: 100%;
 }
 .checkout__logo span {
   display: flex;
@@ -100,7 +103,7 @@
   align-items: center;
   justify-content: center;
   margin: 1rem 0;
-  min-width: 340px;
+  width: 100%;
 }
 
 .checkout__logo p:first-child {
@@ -260,5 +263,8 @@
   .header__sign-hover {
     right: 0rem;
     min-width: 170px;
+  }
+  .checkout__logo {
+    min-width: 340px;
   }
 }
