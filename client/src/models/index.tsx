@@ -40,6 +40,12 @@ export type SecondBasketItem = {
   qty: number;
 };
 
+export type Item = {
+  item: Article;
+  qty: number;
+  _id: string;
+};
+
 export interface BasketState {
   items: BasketItem[];
   total_quantity: number;
