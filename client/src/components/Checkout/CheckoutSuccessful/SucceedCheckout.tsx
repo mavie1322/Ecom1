@@ -13,7 +13,6 @@ const SucceedCheckout = () => {
   const user = useAppSelector((state) => state.user.result);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  console.log(">>>", user);
 
   const handleClick = () => {
     navigate("/");
