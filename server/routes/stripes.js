@@ -83,7 +83,7 @@ router.post("/create-checkout-session", async (req, res) => {
 
   res.send({ url: session.url });
 });
-//Create Order
+//Create Order from data from hw webhook
 const createOrder = async (customer, data) => {
   // console.log("customer >>>", customer);
   const items = JSON.parse(customer.metadata.basket);
@@ -107,7 +107,7 @@ const createOrder = async (customer, data) => {
     user.basket = [];
     user.orders.push(savedOrder._id);
     const updatedUser = await Users.findByIdAndUpdate(id, user, { new: true });
-    console.log("user >>>>", updatedUser);
+    // console.log("user >>>>", updatedUser);
     //send email with order
   } catch (error) {
     console.log(error);
