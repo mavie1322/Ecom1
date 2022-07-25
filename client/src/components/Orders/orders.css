@@ -1,0 +1,30 @@
+.order__container > h1 {
+  text-align: center;
+  font-family: var(--font-family);
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.order__section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  /* border: 1px solid red; */
+}
+
+.order__span {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  background-color: var(--background-color);
+  cursor: pointer;
+
+  letter-spacing: 0.1rem;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+}
