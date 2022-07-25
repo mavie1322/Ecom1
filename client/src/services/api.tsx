@@ -89,7 +89,6 @@ export const payWithStripe = async (body: {
 };
 
 export const getUserDetails = async (userId: Readonly<Params<string>>) => {
-  console.log(userId);
   const res = await API.get(`users/${userId.id}`);
   return res.data;
 };
