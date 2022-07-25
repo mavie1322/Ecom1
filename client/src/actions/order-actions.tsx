@@ -1,4 +1,4 @@
-import { BasketItem } from "../models";
+import { BasketItem, Orders } from "../models";
 import { fetchOrdersByUser, payWithStripe } from "../services/api";
 import { ordersActions } from "../store/orders-slices";
 
@@ -16,9 +16,10 @@ export const payOrder = (basketItems: BasketItem[], userId: string) => {
 export const getOrdersById = (orders: string[]) => {
   return async (dispatch: any) => {
     try {
-      const ordersApi = await fetchOrdersByUser({ orders });
+      const ordersApi: { orders: Orders[] } = await fetchOrdersByUser({
+        orders,
+      });
       dispatch(ordersActions.storeOrders(ordersApi.orders));
-      console.log(ordersApi);
     } catch (error) {
       console.log(error);
     }
