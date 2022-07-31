@@ -37,25 +37,25 @@ const BasketCost = () => {
 
   return (
     <div className='basket__cost'>
-      <span className='basket__discount'>
+      <div className='basket__discount'>
         <p>Discounts</p>
         <p>Apply discount</p>
-      </span>
+      </div>
       <div className='basket__cost-container'>
-        <span>
+        <div>
           <p>Order value</p>
           <p>£{orderValue.toFixed(2)}</p>
-        </span>
+        </div>
         {/* if there is items in the basket delivery cost will be add to the total cost */}
         {user.basket.length !== 0 && (
-          <span>
+          <div>
             <p>Delivery</p>
             <p>£{delivery}</p>
-          </span>
+          </div>
         )}
       </div>
       {/* show the total cost */}
-      <span className='basketMenu__total-value'>
+      <span className='basket__cost-total basketMenu__total-value'>
         <p>Total</p>
         {user.basket.length === 0 ? (
           <p>£{orderValue.toFixed(2)}</p>
