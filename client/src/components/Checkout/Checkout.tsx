@@ -31,7 +31,7 @@ const Checkout = () => {
       <div className='basket__container'>
         <div className='checkout'>
           <div className='checkout__container primary__information'>
-            <h3>My information</h3>
+            <h4>My information</h4>
             <span className='primary__information-details'>
               <p>{`${user.first_name} ${user.last_name}`}</p>
               <p>{user.email}</p>
@@ -40,7 +40,7 @@ const Checkout = () => {
           {/* Billing Address */}
           <div className='checkout__container'>
             <span className='checkout__container__title'>
-              <h3>Billing address</h3>
+              <h4>Billing address</h4>
               {isEditingBillingAddress ? (
                 <AiOutlineClose
                   onClick={() => handleEditBillingAddress()}
@@ -56,7 +56,7 @@ const Checkout = () => {
             {isEditingBillingAddress || user.address.street_address === "" ? (
               <section className='checkout__container-billing'>
                 {" "}
-                <h4>Enter your billing address</h4>
+                <h5>Enter your billing address</h5>
                 <span>
                   <p>Name</p>
                   <p>{`${user.first_name} ${user.last_name}`}</p>
@@ -76,7 +76,7 @@ const Checkout = () => {
           {/* Delivery */}
           <div className='checkout__container'>
             <span className='checkout__container__title'>
-              <h3>Delivery address</h3>
+              <h4>Delivery address</h4>
               {isEditingDeliveryAddress ? (
                 <AiOutlineClose
                   onClick={() => handleEditDeliveryAddress()}
