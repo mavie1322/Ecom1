@@ -16,6 +16,10 @@ const ProfileAccount = () => {
     navigate(`/users/${user._id}/invite`);
   };
 
+  const handleClick = () => {
+    navigate(`/users/${user._id}/settings`);
+  };
+
   return (
     <div className='profile__account'>
       <div>
@@ -23,7 +27,10 @@ const ProfileAccount = () => {
           <p>
             Hi <strong>{`${user.first_name} ${user.last_name}`}</strong>
           </p>
-          <FiSettings className='profile__account-span__icon' />
+          <FiSettings
+            className='profile__account-span__icon'
+            onClick={() => handleClick()}
+          />
         </span>
         <img
           src={`https://avatars.dicebear.com/api/initials/${user.first_name}${user.last_name}.svg`}
