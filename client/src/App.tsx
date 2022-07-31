@@ -12,6 +12,7 @@ import Checkout from "./components/Checkout/Checkout";
 import SucceedCheckout from "./components/Checkout/CheckoutSuccessful/SucceedCheckout";
 import SingleOrder from "./components/SingleOrder/SingleOrder";
 import InviteFriends from "./components/InviteFriends/InviteFriends";
+import Settings from "./components/Settings/Settings";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/products/:item_id' element={<SingleItem />}></Route>
         <Route path='/users/:id' element={<Profile />}></Route>
+        <Route path='/users/:id/settings' element={<Settings />}></Route>
         <Route path='/users/:id/invite' element={<InviteFriends />}></Route>
         <Route path='/users/:id/basket' element={<Basket />}></Route>
         <Route path='/users/:id/orders' element={<Orders />}></Route>
