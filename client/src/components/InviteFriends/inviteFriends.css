@@ -13,7 +13,7 @@
 .inviteFriend__container-div {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 20px;
   text-align: justify;
 }
@@ -30,7 +30,7 @@
 
 .inviteFriend__container__work p {
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   margin: 0.5rem 0;
   text-align: justify;
 }
