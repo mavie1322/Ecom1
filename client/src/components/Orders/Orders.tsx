@@ -16,7 +16,7 @@ const Orders = () => {
 
   return (
     <div className='order__container'>
-      <h1>My Purchases</h1>
+      <h1>MY PURCHASES</h1>
       <section className='order__section'>
         {orders.map((order) => {
           const dateArray = order.createdAt
@@ -30,7 +30,7 @@ const Orders = () => {
               key={order._id}
               className='order__span link'
               to={`/users/${user._id}/orders/${order._id}`}>
-              <h1>{date}</h1>
+              <h2>{date}</h2>
               <AiOutlineRight size={22} className='order__icon' />
             </Link>
           );
