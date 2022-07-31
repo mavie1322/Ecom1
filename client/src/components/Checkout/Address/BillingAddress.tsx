@@ -66,7 +66,7 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
       />
       <Input
         label={"Town / City"}
-        isRequired={false}
+        isRequired={true}
         name={"city"}
         type={"text"}
         value={billingAddress.city}
@@ -91,16 +91,8 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         change={handleChangeBilling}
         focus={true}
       />
-      <div className='sign-in__buttons'>
-        <button
-          type='submit'
-          className='sign-in__become-member font-styling'
-          style={{
-            backgroundColor: "black",
-            color: "white",
-            marginTop: "3rem",
-            width: "500px",
-          }}>
+      <div className='checkout__buttons'>
+        <button type='submit' className='font-styling'>
           Save
         </button>
       </div>
