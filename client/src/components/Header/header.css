@@ -1,4 +1,6 @@
 .header {
+  max-width: 1800px;
+  margin: 2rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,6 +61,7 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 1.5rem;
 }
 
@@ -72,7 +75,7 @@
 .header__icons-container p {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 25px;
   margin-left: 5px;
   text-transform: capitalize;
@@ -122,7 +125,6 @@
 }
 .header__small-logo {
   align-self: center;
-  /* border: 1px solid red; */
   margin-top: 25px;
 }
 .header__logo span,
@@ -147,7 +149,8 @@
 .header__small-logo p:last-child {
   display: flex;
   font-size: 10px;
-  padding-top: 95px;
+  padding-top: 85px;
+  padding-right: 10px;
   color: orangered;
 }
 
@@ -156,7 +159,7 @@
 }
 
 .header__small-logo p:last-child {
-  font-size: 7px;
+  font-size: 5.8px;
   padding-top: 24px;
 }
 
@@ -164,7 +167,6 @@
   width: 60%;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
 }
 
 .header__categories p {
@@ -184,20 +186,21 @@
 }
 
 .header__basket-hover {
-  top: 64px;
-  right: 40px;
-  min-width: 370px;
+  top: 63px;
+  right: 10px;
+  min-width: 285px;
 }
 
 .header__sign-hover {
-  top: 64px;
-  right: 11rem;
-  min-width: 300px;
+  padding: 0.5rem 1rem;
+  top: 63px;
+  right: 5rem;
+  min-width: 250px;
 }
 
 .header__search-hover {
   top: 68px;
-  right: 55px;
+  right: 8px;
   min-width: 355px;
   padding: 0;
 }
@@ -216,7 +219,8 @@
     display: none;
   }
   .header__sign-hover {
-    right: 2rem;
+    right: 0.5rem;
+    top: 64px;
   }
 
   .header__search-hover {
@@ -227,19 +231,24 @@
   }
 }
 
+@media screen and (max-width: 760px) {
+  .header__sign-hover {
+    min-width: 180px;
+  }
+}
+
 @media screen and (max-width: 700px) {
+  .header__basket-hover {
+    display: none;
+  }
   .header__search-hover {
-    right: 30px;
+    right: 8px;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .header__basket-hover {
-    display: none;
-  }
   .checkout__logo span {
     margin-top: 1rem;
-    /* margin-bottom: 0; */
     height: 70px;
   }
   .checkout__logo p:first-child {
@@ -249,22 +258,27 @@
     padding-top: 50px;
   }
 }
-@media screen and (max-width: 550px) {
+
+@media screen and (max-width: 650px) {
   .header__sign-hover {
-    right: 1rem;
-    min-width: 250px;
+    display: none;
   }
+}
+
+@media screen and (max-width: 550px) {
   .header__search-hover {
-    right: 15px;
+    right: 7px;
+  }
+  .header {
+    min-width: 369px;
   }
 }
 
 @media screen and (max-width: 350px) {
-  .header__sign-hover {
-    right: 0rem;
-    min-width: 170px;
-  }
   .checkout__logo {
     min-width: 340px;
+  }
+  .header__search-hover {
+    right: 0px;
   }
 }
