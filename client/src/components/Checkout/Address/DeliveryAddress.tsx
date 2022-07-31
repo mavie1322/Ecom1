@@ -60,7 +60,7 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
       <Input
         label={"Last name"}
         isRequired={true}
-        name={"'last_name'"}
+        name={"last_name"}
         type={"text"}
         value={deliveryAddress.last_name}
         change={handleChangeDelivery}
@@ -111,16 +111,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         change={handleChangeDelivery}
         focus={true}
       />
-      <div className='sign-in__buttons'>
-        <button
-          type='submit'
-          className='sign-in__become-member font-styling'
-          style={{
-            backgroundColor: "black",
-            color: "white",
-            marginTop: "3rem",
-            width: "500px",
-          }}>
+      <div className='checkout__buttons'>
+        <button type='submit' className='font-styling'>
           Save
         </button>
       </div>
