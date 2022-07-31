@@ -41,78 +41,76 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
 
   return (
     <div className='basketMenu'>
-      <div className='basketMenu__container'>
-        <div className='basketMenu__items'>
-          {productsInBasket.length === 0 ? (
-            <p className='font-styling'>Your basket is empty</p>
-          ) : (
-            // loop through the items in the basket to display in the submenu
-            <>
-              {productsInBasket.map((item) => {
-                const { item_basket, quantity_ordered } = item;
-                const { item_name, price, img_url, _id } = item_basket;
-                return (
-                  <Link key={_id} to={`/products/${_id}`} className='link'>
-                    <div className='basketSubmenu'>
-                      <div>
-                        <img src={img_url} alt={item_name} />
-                      </div>
-                      <div className='basketSubmenu__info'>
-                        <span>{item_name}</span>
-                        <span>£{(price / 100).toFixed(2)}</span>
-                        <span>
-                          Quantity: {"   "}
-                          {quantity_ordered}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </>
-          )}{" "}
-        </div>
-        {/* show the order value, delivery and total amount */}
-        <div className='basketMenu__total'>
-          <div className='basketMenu__total-cost'>
-            <span>
-              <p>Order value</p>
-              <p>£{orderValue.toFixed(2)}</p>
-            </span>
-            {/* if there is items in the basket delivery cost will be add to the total cost */}
-            {productsInBasket.length !== 0 && (
-              <span>
-                <p>Delivery</p>
-                {<p>£{delivery}</p>}
-              </span>
-            )}
-          </div>
-          {/* show the total cost */}
-          <span className='basketMenu__total-value'>
-            <p>Total</p>
-            {productsInBasket.length === 0 ? (
-              <p>£{orderValue.toFixed(2)}</p>
-            ) : (
-              <p>£{(delivery + orderValue).toFixed(2)}</p>
-            )}
-          </span>
-        </div>{" "}
-        {productsInBasket.length > 0 && (
+      <div className='basketMenu__items'>
+        {productsInBasket.length === 0 ? (
+          <p className='font-styling'>Your basket is empty</p>
+        ) : (
+          // loop through the items in the basket to display in the submenu
           <>
-            {/* display redirect buttons to checkout or basket component */}
-            <button
-              className='basketMenu__checkout font-styling'
-              onClick={() => handleCheckout()}>
-              Checkout
-            </button>
-            <button
-              className='basketMenu__basket font-styling'
-              onClick={() => redirectToBasketHandler()}>
-              Basket
-            </button>
+            {productsInBasket.map((item) => {
+              const { item_basket, quantity_ordered } = item;
+              const { item_name, price, img_url, _id } = item_basket;
+              return (
+                <Link key={_id} to={`/products/${_id}`} className='link'>
+                  <div className='basketSubmenu'>
+                    <div>
+                      <img src={img_url} alt={item_name} />
+                    </div>
+                    <div className='basketSubmenu__info'>
+                      <span>{item_name}</span>
+                      <span>£{(price / 100).toFixed(2)}</span>
+                      <span>
+                        Quantity: {"   "}
+                        {quantity_ordered}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </>
-        )}
+        )}{" "}
       </div>
+      {/* show the order value, delivery and total amount */}
+      <div className='basketMenu__total'>
+        <div className='basketMenu__total-cost'>
+          <span>
+            <p>Order value</p>
+            <p>£{orderValue.toFixed(2)}</p>
+          </span>
+          {/* if there is items in the basket delivery cost will be add to the total cost */}
+          {productsInBasket.length !== 0 && (
+            <span>
+              <p>Delivery</p>
+              {<p>£{delivery}</p>}
+            </span>
+          )}
+        </div>
+        {/* show the total cost */}
+        <span className='basketMenu__total-value'>
+          <p>Total</p>
+          {productsInBasket.length === 0 ? (
+            <p>£{orderValue.toFixed(2)}</p>
+          ) : (
+            <p>£{(delivery + orderValue).toFixed(2)}</p>
+          )}
+        </span>
+      </div>{" "}
+      {productsInBasket.length > 0 && (
+        <>
+          {/* display redirect buttons to checkout or basket component */}
+          <button
+            className='basketMenu__checkout fonts-styling'
+            onClick={() => handleCheckout()}>
+            Checkout
+          </button>
+          <button
+            className='basketMenu__basket fonts-styling'
+            onClick={() => redirectToBasketHandler()}>
+            Basket
+          </button>
+        </>
+      )}
     </div>
   );
 };
