@@ -1,5 +1,6 @@
 #checkout__title {
   margin-top: 0.5rem;
+  width: 100%;
 }
 .checkout {
   flex: 2;
@@ -8,6 +9,7 @@
   align-items: flex-start;
   margin: 0 1rem;
   height: auto;
+  width: 100%;
 }
 
 .checkout__container {
@@ -21,54 +23,71 @@
   line-height: 20px;
 }
 
-.primary__information h3 {
+.primary__information h4 {
+  margin-top: 0;
   padding-bottom: 1rem;
-  /* font-size: 20px; */
+}
+
+.primary__information-details p:first-child,
+.checkout__container-billing span p {
+  text-transform: capitalize;
 }
 
 .primary__information span p:first-child,
 .primary__information span p:last-child,
-.checkout__container-billing span p:first-child,
-.checkout__container-billing span p:last-child {
+.checkout__container-billing span p {
   text-align: start;
+  font-size: 15px;
 }
 
 .checkout__container__title {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding-bottom: 1rem;
 }
 
-h4 {
-  margin: 1rem 0;
+.checkout__container-billing h5 {
+  margin: 0.5rem 0;
 }
 .checkout__icons:hover {
   cursor: pointer;
 }
 
-.sign-in__become-member {
-  width: 500px;
-}
-
-form > div > span:last-child p:first-child {
-  padding-right: 1rem;
-  font-size: 20px;
-}
 .checkout__delivery-form {
   padding-top: 1rem;
 }
+
 .checkout__container-address p {
   padding-bottom: 0.2rem;
   text-transform: capitalize;
+  font-size: 15px;
+  line-height: 15px;
 }
-@media screen and (max-width: 800px) {
+.checkout__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.checkout__buttons button {
+  margin: 0 auto;
+  background-color: black;
+  color: white;
+  margin: 2rem auto;
+  width: 500px;
+}
+
+@media screen and (max-width: 980px) {
   .checkout {
-    margin: 0;
+    margin: 0 auto;
   }
 }
 
 @media screen and (max-width: 660px) {
   #checkout__title {
     margin-top: 0rem;
+  }
+  .checkout {
+    min-width: 369px;
   }
 }
