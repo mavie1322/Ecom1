@@ -58,9 +58,13 @@ const Header: React.FC = () => {
   };
 
   const togglePopup = () => {
-    setOpenPopup(!openPopup);
-    dispatch(errorsActions.errorUserLoggedIn(false));
-    dispatch(errorsActions.errorUserCreation(""));
+    if (isLoggedIn._id) {
+      navigate(`/users/${isLoggedIn._id}`);
+    } else {
+      setOpenPopup(!openPopup);
+      dispatch(errorsActions.errorUserLoggedIn(false));
+      dispatch(errorsActions.errorUserCreation(""));
+    }
   };
   const handleClick = () => {
     changeCheckout();
@@ -82,7 +86,7 @@ const Header: React.FC = () => {
     let input = event.target.value;
     setInputText(input);
   };
-  // console.log(isLoggedIn);
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -160,7 +164,7 @@ const Header: React.FC = () => {
             onMouseOver={() => setIsHoveringSignIn(true)}
             onMouseOut={() => setIsHoveringSignIn(false)}
             onClick={() => togglePopup()}>
-            <BsPerson size={35} />
+            <BsPerson size={30} />
             {/* if user logged in his name should appear or sign in */}
             {isLoggedIn._id ? (
               <p>{`${userInformation.first_name}`}</p>
@@ -183,13 +187,14 @@ const Header: React.FC = () => {
           <div
             className='header__icons-container'
             onClick={() => setIsSearching(!isSearching)}>
-            <IoSearchOutline size={35} />
+            <IoSearchOutline size={30} />
             <p>Search</p>
           </div>
           {isSearching && (
             <div className='header__navbar-menu_container header__search-hover scale-up-ver-top'>
               <TextField
                 fullWidth
+                size='small'
                 color='secondary'
                 onKeyDown={(e) => handleKeyDown(e)}
                 onChange={(e) => handleInputChange(e)}
@@ -207,7 +212,7 @@ const Header: React.FC = () => {
                   className='link header__icons-container header__navbar-menu'
                   onMouseOver={() => setIsHoveringBasket(true)}
                   onMouseOut={() => setIsHoveringBasket(false)}>
-                  <BsBasket3 size={30} />
+                  <BsBasket3 size={25} />
                   <p>Basket({basketTotalQuantity})</p>
                 </Link>
               </>
@@ -218,7 +223,7 @@ const Header: React.FC = () => {
                   onMouseOver={() => setIsHoveringBasket(true)}
                   onMouseOut={() => setIsHoveringBasket(false)}
                   onClick={() => togglePopup()}>
-                  <BsBasket3 size={30} />
+                  <BsBasket3 size={27} />
                   <p>Basket({basketTotalQuantity})</p>
                 </div>
               </>
