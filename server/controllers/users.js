@@ -128,7 +128,7 @@ export const updateBasket = async (req, res) => {
       /*add an item in user basket:
       check if item is in the basket
       if true increase the quantity and quantity should not be more than 10
-      otherwise add it
+      else add it to the basket
       */
       const itemToAdd = req.body.item;
       const isItemExist = isUserExist.basket.find(
@@ -203,10 +203,8 @@ export const editAddresses = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  console.log(req.params.id);
   try {
     const user = await User.findById(req.params.id);
-    console.log(user);
     const token = jwt.sign(
       {
         email: user.email,
@@ -220,3 +218,5 @@ export const getUserById = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteDeliveryAddress = async (req, res) => {};
