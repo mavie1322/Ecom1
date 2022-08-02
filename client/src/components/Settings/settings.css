@@ -1,0 +1,94 @@
+.settings__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settings__container h1 {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 33px;
+  line-height: 20px;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.settings__container section {
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 2rem;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--font-family);
+  font-weight: 500;
+
+  line-height: 20px;
+}
+
+.settings__container section span {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.settings__container section span p:last-child,
+.settings__container-details__main div p:last-child,
+.settings__container-address p,
+.settings__container-privacy p {
+  font-size: 14px;
+}
+
+.settings__container section span p:last-child:hover {
+  cursor: pointer;
+}
+
+.settings__container-details__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-transform: capitalize;
+}
+
+.settings__container-details__main div:first-child p:last-child {
+  text-transform: lowercase;
+}
+
+.settings__container-details__main div p:first-child {
+  font-size: 11px;
+}
+
+.settings__container-address h6 {
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.settings__container-privacy p:first-child {
+  margin-bottom: 1rem;
+}
+
+.settings__container-privacy p:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 880px) {
+  .settings__container section {
+    margin: 1rem 0;
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .settings__container section {
+    margin: 0.5rem 0;
+    padding: 1rem;
+  }
+  .settings__container section span {
+    padding-bottom: 15px;
+  }
+  .settings__container h1 {
+    font-size: 29px;
+  }
+}
