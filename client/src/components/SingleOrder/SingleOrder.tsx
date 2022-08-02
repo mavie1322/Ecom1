@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ProfileAccount from "../../containers/ProfileAccount";
 import { useAppSelector } from "../../hooks/hooks";
-import { BasketItem } from "../../models";
 import "./singleOrder.css";
 
 const SingleOrder = () => {
@@ -18,8 +16,7 @@ const SingleOrder = () => {
     .split("/")
     .reverse();
   const date = dateArray.join("/");
-  console.log("order >>>>", order);
-  console.log("items", items);
+
   return (
     <div className='profile section__margin'>
       <ProfileAccount />
