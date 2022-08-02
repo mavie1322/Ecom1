@@ -1,0 +1,83 @@
+.addressBook__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addressBook__container h1 {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 33px;
+  line-height: 20px;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.addressBook__container section {
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 2rem;
+  background-color: var(--background-color);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--font-family);
+  font-weight: 500;
+
+  line-height: 20px;
+}
+
+.addressBook__container-span,
+.addressBook__container-delivery {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addressBook__container section:last-child div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.addressBook__container section span p:last-child,
+.addressBook__container section div p {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.addressBook__container section span p:last-child:hover,
+.addressBook__container section:last-child p:last-child {
+  cursor: pointer;
+}
+
+.addressBook__container-billingForm {
+  margin: 0 auto;
+}
+
+.addressBook__container-billingForm button {
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 880px) {
+  .addressBook__container section {
+    margin: 1rem 0;
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .addressBook__container section {
+    margin: 0.5rem 0;
+    padding: 1rem;
+  }
+  .addressBook__container section span {
+    padding-bottom: 15px;
+  }
+  .addressBook__container h1 {
+    font-size: 29px;
+  }
+}
