@@ -16,7 +16,7 @@ const Orders = () => {
 
   return (
     <div className='order__container'>
-      <h1>MY PURCHASES</h1>
+      <h1>My Purchases</h1>
       <section className='order__section'>
         {orders.map((order) => {
           const dateArray = order.createdAt
