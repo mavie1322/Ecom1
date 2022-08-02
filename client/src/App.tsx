@@ -13,6 +13,7 @@ import SucceedCheckout from "./components/Checkout/CheckoutSuccessful/SucceedChe
 import SingleOrder from "./components/SingleOrder/SingleOrder";
 import InviteFriends from "./components/InviteFriends/InviteFriends";
 import Settings from "./components/Settings/Settings";
+import AddressBook from "./components/AddressBook/AddressBook";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         <Route path='/products/:item_id' element={<SingleItem />}></Route>
         <Route path='/users/:id' element={<Profile />}></Route>
         <Route path='/users/:id/settings' element={<Settings />}></Route>
+        <Route
+          path='/users/:id/settings/addressbook'
+          element={<AddressBook />}></Route>
         <Route path='/users/:id/invite' element={<InviteFriends />}></Route>
         <Route path='/users/:id/basket' element={<Basket />}></Route>
         <Route path='/users/:id/orders' element={<Orders />}></Route>
