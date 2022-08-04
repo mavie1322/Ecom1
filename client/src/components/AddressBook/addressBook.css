@@ -46,6 +46,9 @@
 .addressBook__container section span p:last-child,
 .addressBook__container section div p {
   font-size: 14px;
+}
+
+.addressBook__container-info p {
   text-transform: capitalize;
 }
 
