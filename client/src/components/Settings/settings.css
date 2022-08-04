@@ -65,6 +65,11 @@
   font-size: 11px;
 }
 
+.settings__container-info p {
+  font-weight: 500;
+  font-size: 11px;
+}
+
 .settings__container-privacy p:first-child {
   margin-bottom: 1rem;
 }
