@@ -219,4 +219,33 @@ export const getUserById = async (req, res) => {
   }
 };
 
-export const deleteDeliveryAddress = async (req, res) => {};
+export const deleteDeliveryAddress = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+    const resetDeliveryAddress = {
+      first_name: "",
+      last_name: "",
+      street_address: "",
+      flat_number: "",
+      city: "",
+      postcode: "",
+      country: "",
+    };
+    user.delivery_address = { ...resetDeliveryAddress };
+    const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
+
+    const token = jwt.sign(
+      {
+        email: updatedUser.email,
+        id: updatedUser._id,
+      },
+      process.env.SECRET,
+      { expiresIn: "1h" }
+    );
+    res.send({ result: updatedUser, token });
+  } catch (error) {
+    console.log(error);
+  }
+};
