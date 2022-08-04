@@ -89,11 +89,16 @@ export const payWithStripe = async (body: {
 };
 
 export const getUserDetails = async (userId: Readonly<Params<string>>) => {
-  const res = await API.get(`users/${userId.id}`);
+  const res = await API.get(`/users/${userId.id}`);
   return res.data;
 };
 
 export const fetchOrdersByUser = async (body: { orders: string[] }) => {
-  const res = await API.patch("orders/", body);
+  const res = await API.patch("/orders/", body);
+  return res.data;
+};
+
+export const deleteDeliveryAddressApi = async (userId: string) => {
+  const res = await API.delete(`/users/${userId}/settings`);
   return res.data;
 };
