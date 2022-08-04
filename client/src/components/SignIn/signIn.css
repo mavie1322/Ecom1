@@ -144,11 +144,6 @@
   background-color: rgb(253, 55, 55);
   padding: 0.5rem 0;
 }
-@media screen and (max-width: 580px) {
-  .sign-in__buttons button {
-    width: 50%;
-  }
-}
 
 @media screen and (max-width: 450px) {
   .sign-in {
