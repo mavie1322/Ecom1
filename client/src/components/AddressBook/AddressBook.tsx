@@ -1,16 +1,24 @@
 import { dividerClasses } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import ProfileAccount from "../../containers/ProfileAccount";
 import { useAppSelector } from "../../hooks/hooks";
 import BillingAddress from "../Checkout/Address/BillingAddress";
 import DeliveryAddress from "../Checkout/Address/DeliveryAddress";
+import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
 import "./addressBook.css";
 
 const AddressBook = () => {
   const user = useAppSelector((state) => state.user.result);
   const [editBilling, setEditBilling] = useState<boolean>(false);
   const [editDelivery, setEditDelivery] = useState<boolean>(false);
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
+
+  const toggleConfirmation = () => {
+    setOpenPopup(!openPopup);
+  };
+
+  // useEffect(() => {}, [user.delivery_address]);
 
   return (
     <div className='profile section__margin'>
@@ -31,8 +39,12 @@ const AddressBook = () => {
                 setIsEditing={setEditBilling}
               />{" "}
             </div>
-          ) : (
+          ) : user.address.street_address === "" ? (
             <div>
+              <p>No home address saved</p>
+            </div>
+          ) : (
+            <div className='addressBook__container-info'>
               <p>{user.address.flat_number}</p>
               <p>{user.address.street_address}</p>
               <p>{`${user.address.postcode} ${user.address.city}`}</p>
@@ -54,15 +66,26 @@ const AddressBook = () => {
                 setIsEditing={setEditDelivery}
               />
             </div>
+          ) : user.delivery_address.street_address === "" ? (
+            <div>
+              <p>No delivery address saved</p>
+            </div>
           ) : (
             <div className='addressBook__container-delivery'>
-              <div>
+              <div className='addressBook__container-info'>
                 <p>{user.delivery_address.flat_number}</p>
                 <p>{user.delivery_address.street_address}</p>
                 <p>{`${user.delivery_address.postcode} ${user.delivery_address.city}`}</p>
                 <p>{user.delivery_address.country}</p>
               </div>
-              <p>delete</p>
+              <p onClick={() => toggleConfirmation()}>Delete</p>
+              {openPopup && (
+                <ConfirmationPopup
+                  toggleConfirmation={toggleConfirmation}
+                  title='Remove Address'
+                  msg='Are you sure you want to remove this delivery address?'
+                />
+              )}
             </div>
           )}
         </section>
