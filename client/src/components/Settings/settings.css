@@ -27,13 +27,19 @@
   line-height: 20px;
 }
 
-.settings__container section span {
+.settings__container-span {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
+.settings__container-form {
+  margin: 0 auto;
+}
+.settings__container-form button {
+  padding: 0.5rem;
+}
 .settings__container section span p:last-child,
 .settings__container-details__main div p:last-child,
 .settings__container-address p,
