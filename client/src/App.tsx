@@ -14,6 +14,7 @@ import SingleOrder from "./components/SingleOrder/SingleOrder";
 import InviteFriends from "./components/InviteFriends/InviteFriends";
 import Settings from "./components/Settings/Settings";
 import AddressBook from "./components/AddressBook/AddressBook";
+import ChangePassword from "./components/ChangePassword/ChangePassword";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         <Route path='/products/:item_id' element={<SingleItem />}></Route>
         <Route path='/users/:id' element={<Profile />}></Route>
         <Route path='/users/:id/settings' element={<Settings />}></Route>
+        <Route
+          path='/users/:id/settings/change-password'
+          element={<ChangePassword />}></Route>
         <Route
           path='/users/:id/settings/addressbook'
           element={<AddressBook />}></Route>
