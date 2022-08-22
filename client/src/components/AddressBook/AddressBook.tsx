@@ -1,11 +1,10 @@
-import { dividerClasses } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import ProfileAccount from "../../containers/ProfileAccount";
 import { useAppSelector } from "../../hooks/hooks";
 import BillingAddress from "../Checkout/Address/BillingAddress";
 import DeliveryAddress from "../Checkout/Address/DeliveryAddress";
-import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
+import ConfirmationPopup from "../../containers/ConfirmationPopup/ConfirmationPopup";
 import "./addressBook.css";
 
 const AddressBook = () => {
@@ -33,7 +32,7 @@ const AddressBook = () => {
             </p>
           </span>
           {editBilling ? (
-            <div className='addressBook__container-billingForm'>
+            <div className='settings__container-form'>
               <BillingAddress
                 isEditing={editBilling}
                 setIsEditing={setEditBilling}
@@ -60,7 +59,7 @@ const AddressBook = () => {
             </p>
           </span>
           {editDelivery ? (
-            <div className='addressBook__container-billingForm'>
+            <div className='settings__container-form'>
               <DeliveryAddress
                 isEditing={editDelivery}
                 setIsEditing={setEditDelivery}
