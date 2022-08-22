@@ -54,6 +54,8 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={billingAddress.street_address}
         change={handleChangeBilling}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Flat Number / House Name"}
@@ -63,6 +65,8 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={billingAddress.flat_number}
         change={handleChangeBilling}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Town / City"}
@@ -72,6 +76,8 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={billingAddress.city}
         change={handleChangeBilling}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Postcode"}
@@ -81,6 +87,8 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={billingAddress.postcode}
         change={handleChangeBilling}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Country"}
@@ -90,6 +98,8 @@ const BillingAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={billingAddress.country}
         change={handleChangeBilling}
         focus={true}
+        read={false}
+        style={{}}
       />
       <div className='checkout__buttons'>
         <button type='submit' className='font-styling'>
