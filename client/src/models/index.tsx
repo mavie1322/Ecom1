@@ -121,3 +121,15 @@ export type BasketContextType = {
   clear: () => void;
   changeIsDisplayed: () => void;
 };
+
+export interface UserInfo {
+  first_name: string;
+  last_name: string;
+  postcode: string;
+  country: string;
+}
+export type Passwords = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
