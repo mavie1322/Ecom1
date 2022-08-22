@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { editUserDetails } from "../../actions/user-actions";
 import Input from "../../containers/Input";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { UserInfo } from "../../models/index";
 
-const DetailsForm = () => {
+type Props = {
+  setEditUserInfo: React.Dispatch<React.SetStateAction<boolean>>;
+  editUserInfo: boolean;
+};
+
+const DetailsForm: React.FC<Props> = ({ setEditUserInfo, editUserInfo }) => {
   const user = useAppSelector((state) => state.user.result);
+  const [userDetails, setUserDetails] = useState<UserInfo>({
+    first_name: user.first_name,
+    last_name: user.last_name,
+    postcode: user.address.postcode,
+    country: user.address.country,
+  });
+  const dispatch = useAppDispatch();
 
-  const handleChangeDetails = () => {};
+  const handleChangeDetails = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserDetails({ ...userDetails, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(editUserDetails(userDetails, user._id));
+    setEditUserInfo(!editUserInfo);
+  };
 
   return (
-    <form>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <Input
         label={"Email"}
         isRequired={true}
@@ -17,42 +39,56 @@ const DetailsForm = () => {
         value={user.email}
         change={handleChangeDetails}
         focus={true}
+        read={true}
+        style={{
+          backgroundColor: "gray",
+          cursor: "no-drop",
+          textTransform: "lowercase",
+        }}
       />
       <Input
         label={"First Name"}
         isRequired={true}
         name={"first_name"}
         type={"text"}
-        value={user.first_name}
+        value={userDetails.first_name}
         change={handleChangeDetails}
         focus={true}
+        style={{}}
+        read={false}
       />
       <Input
         label={"Last Name"}
         isRequired={true}
         name={"last_name"}
         type={"text"}
-        value={user.last_name}
+        value={userDetails.last_name}
         change={handleChangeDetails}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Postcode"}
         isRequired={true}
         name={"postcode"}
         type={"text"}
-        value={user.address.postcode}
+        value={userDetails.postcode}
         change={handleChangeDetails}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Country"}
         isRequired={true}
         name={"country"}
         type={"text"}
-        value={user.address.country}
+        value={userDetails.country}
         change={handleChangeDetails}
         focus={true}
+        read={false}
+        style={{}}
       />
       <div className='checkout__buttons'>
         <button type='submit' className='font-styling'>
