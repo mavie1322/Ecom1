@@ -56,6 +56,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.first_name}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Last name"}
@@ -65,6 +67,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.last_name}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Address"}
@@ -74,6 +78,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.street_address}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Flat Number / House Name"}
@@ -83,6 +89,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.flat_number}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Town / City"}
@@ -92,6 +100,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.city}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Postcode"}
@@ -101,6 +111,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.postcode}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <Input
         label={"Country"}
@@ -110,6 +122,8 @@ const DeliveryAddress: React.FC<Props> = ({ isEditing, setIsEditing }) => {
         value={deliveryAddress.country}
         change={handleChangeDelivery}
         focus={true}
+        read={false}
+        style={{}}
       />
       <div className='checkout__buttons'>
         <button type='submit' className='font-styling'>
