@@ -57,14 +57,6 @@
   cursor: pointer;
 }
 
-.addressBook__container-billingForm {
-  margin: 0 auto;
-}
-
-.addressBook__container-billingForm button {
-  padding: 0.5rem;
-}
-
 @media screen and (max-width: 880px) {
   .addressBook__container section {
     margin: 1rem 0;
