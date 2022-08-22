@@ -174,15 +174,12 @@ export const editAddresses = async (req, res) => {
     const isUserExist = await User.findOne({ email });
     let updatedBasket;
     if (req.body.hasOwnProperty("billingAddress")) {
-      // if (!isUserExist.address.street_address) {
       isUserExist.address = { ...req.body.billingAddress };
-      // }
       updatedBasket = await User.findByIdAndUpdate(userId, isUserExist, {
         new: true,
       });
     } else if (req.body.hasOwnProperty("deliveryAddress")) {
       isUserExist.delivery_address = { ...req.body.deliveryAddress };
-      // }
       updatedBasket = await User.findByIdAndUpdate(userId, isUserExist, {
         new: true,
       });
@@ -215,7 +212,7 @@ export const getUserById = async (req, res) => {
     );
     res.send({ result: user, token });
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ message: "Something went wrong" });
   }
 };
 
@@ -246,6 +243,33 @@ export const deleteDeliveryAddress = async (req, res) => {
     );
     res.send({ result: updatedUser, token });
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ message: "Something went wrong" });
+  }
+};
+
+export const editUserInformation = async (req, res) => {
+  const { userInformation } = req.body;
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId);
+    user.first_name = userInformation.first_name;
+    user.last_name = userInformation.last_name;
+    user.address.postcode = userInformation.postcode;
+    user.address.country = userInformation.country;
+    const updatedUser = await User.findByIdAndUpdate(userId, user, {
+      new: true,
+    });
+    const token = jwt.sign(
+      {
+        email: updatedUser.email,
+        id: updatedUser._id,
+      },
+      process.env.SECRET,
+      { expiresIn: "1h" }
+    );
+    res.send({ result: updatedUser, token });
+  } catch (error) {
+    res.status(500).send({ message: "Something went wrong" });
   }
 };
