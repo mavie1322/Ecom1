@@ -5,6 +5,7 @@ import {
   BasketItem,
   Address,
   AddressDelivery,
+  UserInfo,
 } from "../models";
 import {
   addItemToBasketApi,
@@ -16,6 +17,7 @@ import {
   logInUser,
   getUserDetails,
   deleteDeliveryAddressApi,
+  editUserInformationApi,
 } from "../services/api";
 import { errorsActions } from "../store/errors-slices";
 import { userActions } from "../store/user-slices";
@@ -145,6 +147,20 @@ export const deleteDeliveryAddress = (userId: string) => {
   return async (dispatch: any) => {
     try {
       const newUserProfile = await deleteDeliveryAddressApi(userId);
+      dispatch(userActions.storeUser(newUserProfile));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editUserDetails = (userInformation: UserInfo, userId: string) => {
+  return async (dispatch: any) => {
+    try {
+      const newUserProfile = await editUserInformationApi(
+        { userInformation },
+        userId
+      );
       dispatch(userActions.storeUser(newUserProfile));
     } catch (error) {
       console.log(error);
