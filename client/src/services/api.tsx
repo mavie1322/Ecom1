@@ -1,6 +1,12 @@
 import axios from "axios";
 import { Params } from "react-router-dom";
-import { Address, AddressDelivery, BasketItem, UserDetails } from "../models";
+import {
+  Address,
+  AddressDelivery,
+  BasketItem,
+  UserDetails,
+  UserInfo,
+} from "../models";
 
 const API = axios.create({
   baseURL: "http://localhost:5000",
@@ -100,5 +106,13 @@ export const fetchOrdersByUser = async (body: { orders: string[] }) => {
 
 export const deleteDeliveryAddressApi = async (userId: string) => {
   const res = await API.delete(`/users/${userId}/settings`);
+  return res.data;
+};
+
+export const editUserInformationApi = async (
+  body: { userInformation: UserInfo },
+  userId: string
+) => {
+  const res = await API.patch(`/users/${userId}/settings`, body);
   return res.data;
 };
