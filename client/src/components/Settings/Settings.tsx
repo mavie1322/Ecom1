@@ -16,15 +16,18 @@ const Settings = () => {
       <div className='profile__summary settings__container'>
         <h1>Settings</h1>
         <section>
-          <span>
+          <span className='settings__container-span'>
             <h4>My details</h4>
             <p onClick={() => setEditUserInfo(!editUserInfo)}>
               {editUserInfo ? <AiOutlineClose /> : "Edit"}
             </p>
           </span>
           {editUserInfo ? (
-            <div>
-              <DetailsForm />
+            <div className='settings__container-form'>
+              <DetailsForm
+                setEditUserInfo={setEditUserInfo}
+                editUserInfo={editUserInfo}
+              />
             </div>
           ) : (
             <div className='settings__container-details__main'>
@@ -52,7 +55,7 @@ const Settings = () => {
           )}
         </section>
         <section>
-          <span>
+          <span className='settings__container-span'>
             <h4>Address book</h4>
             <p
               onClick={() =>
@@ -83,7 +86,12 @@ const Settings = () => {
             <h4>Privacy</h4>
           </span>
           <div className='settings__container-privacy'>
-            <p>Change password</p>
+            <p
+              onClick={() =>
+                navigate(`/users/${user._id}/settings/change-password`)
+              }>
+              Change password
+            </p>
             <p>Delete account</p>
           </div>
         </section>
