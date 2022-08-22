@@ -7,6 +7,8 @@ type Props = {
   value: string;
   change: (event: React.ChangeEvent<HTMLInputElement>) => void;
   focus: boolean;
+  read: boolean;
+  style: object;
 };
 
 const Input: React.FC<Props> = ({
@@ -17,6 +19,8 @@ const Input: React.FC<Props> = ({
   value,
   change,
   focus,
+  read,
+  style,
 }) => {
   return (
     <div className='sign-in__inputs'>
@@ -30,8 +34,13 @@ const Input: React.FC<Props> = ({
         type={type}
         value={value}
         onChange={change}
-        style={{ backgroundColor: "white" }}
+        style={{
+          backgroundColor: "white",
+          textTransform: "capitalize",
+          ...style,
+        }}
         autoFocus={focus}
+        readOnly={read}
       />
     </div>
   );
