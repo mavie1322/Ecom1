@@ -25,7 +25,6 @@ const Header: React.FC = () => {
   ) as BasketContextType;
   const categoriesList = useAppSelector((state) => state.categories.categories);
   let isLoggedIn = useAppSelector((state) => state.user.result);
-  const userInformation = useAppSelector((state) => state.user.result);
   const dispatch = useAppDispatch();
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [isHoveringBasket, setIsHoveringBasket] = useState<boolean>(false);
@@ -167,7 +166,7 @@ const Header: React.FC = () => {
             <BsPerson size={30} />
             {/* if user logged in his name should appear or sign in */}
             {isLoggedIn._id ? (
-              <p>{`${userInformation.first_name}`}</p>
+              <p>{`${isLoggedIn.first_name}`}</p>
             ) : (
               <p>Sign In</p>
             )}
