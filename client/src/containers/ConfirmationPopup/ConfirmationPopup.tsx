@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { deleteDeliveryAddress } from "../../actions/user-actions";
+import { useNavigate } from "react-router-dom";
+import { deleteDeliveryAddress, deleteUser } from "../../actions/user-actions";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import "./confirmationPopup.css";
 
@@ -15,9 +16,14 @@ const ConfirmationPopup: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.result);
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    dispatch(deleteDeliveryAddress(user._id));
+    if (title === "Remove Address") {
+      dispatch(deleteDeliveryAddress(user._id));
+    } else {
+      dispatch(deleteUser(user._id, navigate));
+    }
     toggleConfirmation();
   };
 
