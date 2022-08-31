@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import ConfirmationPopup from "../../containers/ConfirmationPopup/ConfirmationPopup";
 import ProfileAccount from "../../containers/ProfileAccount";
 import { useAppSelector } from "../../hooks/hooks";
 import DetailsForm from "./DetailsForm";
@@ -9,7 +10,12 @@ import "./settings.css";
 const Settings = () => {
   const user = useAppSelector((state) => state.user.result);
   const [editUserInfo, setEditUserInfo] = useState<boolean>(false);
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
   const navigate = useNavigate();
+  const toggleConfirmation = () => {
+    setOpenPopup(!openPopup);
+  };
+
   return (
     <div className='profile section__margin'>
       <ProfileAccount />
@@ -92,7 +98,14 @@ const Settings = () => {
               }>
               Change password
             </p>
-            <p>Delete account</p>
+            <p onClick={() => toggleConfirmation()}>Delete account</p>
+            {openPopup && (
+              <ConfirmationPopup
+                toggleConfirmation={toggleConfirmation}
+                title='Delete Account'
+                msg='Are you sure you want to delete your account?'
+              />
+            )}
           </div>
         </section>
       </div>
