@@ -110,6 +110,8 @@ export interface Orders {
 export type Errors = {
   user_creation: string;
   not_login: boolean;
+  currentPasswordError: boolean;
+  passwordUnmatched: boolean;
 };
 
 export type BasketContextType = {
