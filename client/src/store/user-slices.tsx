@@ -40,6 +40,10 @@ export const userSlice = createSlice({
       state.result = action.payload.result;
       state.token = action.payload.token;
     },
+    resetUser(state) {
+      state.result = initialUserProfileState.result;
+      state.token = initialUserProfileState.token;
+    },
   },
 });
 
