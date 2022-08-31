@@ -4,6 +4,7 @@ import {
   Address,
   AddressDelivery,
   BasketItem,
+  Passwords,
   UserDetails,
   UserInfo,
 } from "../models";
@@ -114,5 +115,18 @@ export const editUserInformationApi = async (
   userId: string
 ) => {
   const res = await API.patch(`/users/${userId}/settings`, body);
+  return res.data;
+};
+
+export const changePasswordApi = async (
+  body: { passwordEntries: Passwords },
+  userId: string
+) => {
+  const res = await API.patch(`/users/${userId}/settings`, body);
+  return res.data;
+};
+
+export const deleteUserApi = async (userId: string) => {
+  const res = await API.delete(`/users/${userId}`);
   return res.data;
 };
