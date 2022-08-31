@@ -1,4 +1,4 @@
-import { Params } from "react-router-dom";
+import { Params, useNavigate } from "react-router-dom";
 import {
   UserDetails,
   User,
@@ -6,6 +6,7 @@ import {
   Address,
   AddressDelivery,
   UserInfo,
+  Passwords,
 } from "../models";
 import {
   addItemToBasketApi,
@@ -18,6 +19,8 @@ import {
   getUserDetails,
   deleteDeliveryAddressApi,
   editUserInformationApi,
+  changePasswordApi,
+  deleteUserApi,
 } from "../services/api";
 import { errorsActions } from "../store/errors-slices";
 import { userActions } from "../store/user-slices";
@@ -162,6 +165,47 @@ export const editUserDetails = (userInformation: UserInfo, userId: string) => {
         userId
       );
       dispatch(userActions.storeUser(newUserProfile));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const changePassword = (
+  passwordEntries: Passwords,
+  userId: string,
+  navigate: any
+) => {
+  return async (dispatch: any) => {
+    try {
+      const newUserProfile = await changePasswordApi(
+        { passwordEntries },
+        userId
+      );
+      navigate(`/users/${userId}/settings`);
+      dispatch(userActions.storeUser(newUserProfile));
+    } catch (error: any) {
+      let errorMessage = error.response.data.message;
+      //if current password is incorrect, dispatch action to display error message
+      if (errorMessage === "Current password is incorrect") {
+        dispatch(errorsActions.errorCurrentPasswordIncorrect(true));
+      }
+      //if new passwords are not identical, dispatch action to display error message
+      else if (errorMessage === "Passwords don't match") {
+        dispatch(errorsActions.errorPasswordUnmatched(true));
+      }
+    }
+  };
+};
+
+export const deleteUser = (userId: string, navigate: any) => {
+  return async (dispatch: any) => {
+    try {
+      const deletedUser = await deleteUserApi(userId);
+      if (deletedUser.message === "User deleted") {
+        dispatch(userActions.resetUser());
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
