@@ -70,7 +70,6 @@
   justify-content: center;
 }
 .checkout__buttons button {
-  margin: 0 auto;
   background-color: black;
   color: white;
   margin: 2rem auto;
