@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import User from "../models/usersMessage.js";
 
 export const signInUser = async (req, res) => {
@@ -248,18 +249,44 @@ export const deleteDeliveryAddress = async (req, res) => {
 };
 
 export const editUserInformation = async (req, res) => {
-  const { userInformation } = req.body;
   const userId = req.userId;
 
   try {
     const user = await User.findById(userId);
-    user.first_name = userInformation.first_name;
-    user.last_name = userInformation.last_name;
-    user.address.postcode = userInformation.postcode;
-    user.address.country = userInformation.country;
-    const updatedUser = await User.findByIdAndUpdate(userId, user, {
-      new: true,
-    });
+    let updatedUser;
+    //check if the request body has userInformation as property and update user profile
+    if (req.body.hasOwnProperty("userInformation")) {
+      const { userInformation } = req.body;
+      user.first_name = userInformation.first_name;
+      user.last_name = userInformation.last_name;
+      user.address.postcode = userInformation.postcode;
+      user.address.country = userInformation.country;
+      updatedUser = await User.findByIdAndUpdate(userId, user, {
+        new: true,
+      });
+    }
+    //check request body has passwordEntries as property and change password
+    else if (req.body.hasOwnProperty("passwordEntries")) {
+      const { passwordEntries } = req.body;
+      const isPasswordCorrect = await bcrypt.compare(
+        passwordEntries.oldPassword,
+        user.password
+      );
+      //send message if current password is invalid
+      if (!isPasswordCorrect) {
+        res.status(400).send({ message: "Current password is incorrect" });
+      }
+      //send message if password don't match
+      if (passwordEntries.newPassword !== passwordEntries.confirmPassword) {
+        res.status(400).send({ message: "Passwords don't match" });
+      }
+      //modify password
+      const hashedPassword = await bcrypt.hash(passwordEntries.newPassword, 12);
+      user.password = hashedPassword;
+      updatedUser = await User.findByIdAndUpdate(userId, user, {
+        new: true,
+      });
+    }
     const token = jwt.sign(
       {
         email: updatedUser.email,
@@ -269,6 +296,20 @@ export const editUserInformation = async (req, res) => {
       { expiresIn: "1h" }
     );
     res.send({ result: updatedUser, token });
+  } catch (error) {
+    res.status(500).send({ message: "Something went wrong" });
+  }
+};
+
+export const deleteUserAccount = async (req, res) => {
+  // console.log(req.userId, "we are inside the controller wooohaaa");
+  const userId = req.userId;
+  // console.log(req.params)
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId))
+      return res.status(404).send("No user with that id");
+    await User.findByIdAndRemove(userId);
+    res.send({ message: "User deleted" });
   } catch (error) {
     res.status(500).send({ message: "Something went wrong" });
   }
