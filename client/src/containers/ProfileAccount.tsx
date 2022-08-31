@@ -1,12 +1,14 @@
 import React from "react";
-import { useAppSelector } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { userActions } from "../store/user-slices";
 
 const ProfileAccount = () => {
   const user = useAppSelector((state) => state.user.result);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleAllPurchases = () => {
     navigate(`/users/${user._id}`);
@@ -18,6 +20,11 @@ const ProfileAccount = () => {
 
   const handleClick = () => {
     navigate(`/users/${user._id}/settings`);
+  };
+
+  const handleSignOut = () => {
+    dispatch(userActions.resetUser());
+    navigate("/");
   };
 
   return (
@@ -47,7 +54,7 @@ const ProfileAccount = () => {
           <p>Invite a friend</p>
           <AiOutlineRight />
         </span>
-        <p>Sign out</p>
+        <p onClick={() => handleSignOut()}>Sign out</p>
       </div>
     </div>
   );
