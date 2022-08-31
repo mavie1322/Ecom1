@@ -7,6 +7,7 @@ import {
   getUserById,
   deleteDeliveryAddress,
   editUserInformation,
+  deleteUserAccount,
 } from "../controllers/users.js";
 import { auth } from "../middleware/auth.js";
 
@@ -18,6 +19,7 @@ router.patch("/:id/basket", auth, updateBasket);
 router.patch("/:id/checkout", auth, editAddresses);
 router.delete("/:id/settings", auth, deleteDeliveryAddress);
 router.patch("/:id/settings", auth, editUserInformation);
-router.get("/:id/", getUserById);
+router.get("/:id/", auth, getUserById);
+router.delete("/:id/", auth, deleteUserAccount);
 
 export default router;
