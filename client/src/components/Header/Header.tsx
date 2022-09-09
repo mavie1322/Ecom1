@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
@@ -18,6 +18,8 @@ import { itemsActions } from "../../store/items-slice";
 import { errorsActions } from "../../store/errors-slices";
 import { BasketContext } from "../../context/basket";
 import { BasketContextType } from "../../models";
+import decode from "jwt-decode";
+import { userActions } from "../../store/user-slices";
 
 const Header: React.FC = () => {
   const { itemsInBasket, isCheckout, changeCheckout, isDisplayed } = useContext(
@@ -25,6 +27,7 @@ const Header: React.FC = () => {
   ) as BasketContextType;
   const categoriesList = useAppSelector((state) => state.categories.categories);
   let isLoggedIn = useAppSelector((state) => state.user.result);
+  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [isHoveringBasket, setIsHoveringBasket] = useState<boolean>(false);
@@ -34,22 +37,6 @@ const Header: React.FC = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const navigate = useNavigate();
   const [basketTotalQuantity, setBasketTotalQuantity] = useState<number>(0);
-
-  useEffect(() => {
-    isLoggedIn.email === ""
-      ? setBasketTotalQuantity(
-          itemsInBasket.reduce((total, item) => {
-            total += item.quantity_ordered;
-            return total;
-          }, 0)
-        )
-      : setBasketTotalQuantity(
-          isLoggedIn.basket.reduce((total, item) => {
-            total += item.quantity_ordered;
-            return total;
-          }, 0)
-        );
-  }, [isLoggedIn.basket, isLoggedIn.email, itemsInBasket]);
 
   const selectCategoryHandler = () => {
     dispatch(categoriesActions.pickedCategory(""));
@@ -65,6 +52,7 @@ const Header: React.FC = () => {
       dispatch(errorsActions.errorUserCreation(""));
     }
   };
+
   const handleClick = () => {
     changeCheckout();
     navigate(`/users/${isLoggedIn._id}/basket`);
@@ -85,6 +73,37 @@ const Header: React.FC = () => {
     let input = event.target.value;
     setInputText(input);
   };
+
+  //when token expired in 1hour logout
+  const logOut = useCallback(() => {
+    dispatch(userActions.resetUser());
+    navigate("/");
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    const token = user?.token;
+    if (token) {
+      const decodedToken: any = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logOut();
+    }
+  }, [logOut, user?.token]);
+
+  //quantity of items in the basket will be set depending on the user is logged or not
+  useEffect(() => {
+    isLoggedIn.email === ""
+      ? setBasketTotalQuantity(
+          itemsInBasket.reduce((total, item) => {
+            total += item.quantity_ordered;
+            return total;
+          }, 0)
+        )
+      : setBasketTotalQuantity(
+          isLoggedIn.basket.reduce((total, item) => {
+            total += item.quantity_ordered;
+            return total;
+          }, 0)
+        );
+  }, [isLoggedIn.basket, isLoggedIn.email, itemsInBasket]);
 
   useEffect(() => {
     dispatch(fetchCategories());
