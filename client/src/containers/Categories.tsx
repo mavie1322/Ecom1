@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { Category } from "../models";
 import { categoriesActions } from "../store/categories-slices";
 
@@ -10,6 +10,9 @@ type Props = {
 
 const Categories: React.FC<Props> = ({ categoriesList }) => {
   const dispatch = useAppDispatch();
+  const pickedCategory = useAppSelector(
+    (state) => state.categories.selected_category
+  );
 
   const selectCategoryHandler = (category_name: string) => {
     dispatch(categoriesActions.pickedCategory(category_name));
@@ -23,6 +26,7 @@ const Categories: React.FC<Props> = ({ categoriesList }) => {
           <Link
             to={"/"}
             className='link'
+            style={pickedCategory === category_name ? { color: "red" } : {}}
             key={_id}
             onClick={() => selectCategoryHandler(category_name)}>
             <p>{category_name}</p>
