@@ -4,6 +4,9 @@ import { payOrder } from "../actions/order-actions";
 import { BasketContext } from "../context/basket";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { BasketContextType } from "../models";
+import mastercard from "../pics/master-card.svg";
+import paypal from "../pics/paypal.svg";
+import visa from "../pics/visa.svg";
 
 const BasketCost = () => {
   const user = useAppSelector((state) => state.user.result);
@@ -114,8 +117,18 @@ const BasketCost = () => {
             Continue to checkout
           </button>
           <div className='basket__transaction-container'>
-            <p>We accept</p>
-            <p>Credit cards</p>
+            <p>We accept:</p>
+            <ul>
+              <li>
+                <img src={mastercard} alt='mastercard payment' />
+              </li>
+              <li>
+                <img src={visa} alt='visa payment' />
+              </li>
+              <li>
+                <img src={paypal} alt='paypal payment' />
+              </li>
+            </ul>
           </div>
 
           <p className='basket__important'>
