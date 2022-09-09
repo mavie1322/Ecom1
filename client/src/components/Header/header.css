@@ -206,6 +206,9 @@
 }
 
 @media screen and (max-width: 1050px) {
+  .header {
+    width: 100%;
+  }
   .header__icons-container p {
     display: none;
   }
