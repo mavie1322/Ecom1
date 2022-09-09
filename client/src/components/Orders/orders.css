@@ -34,6 +34,7 @@
 .order__div {
   background: var(--background-color);
   padding: 2rem;
+  margin-top: 2.7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +43,6 @@
   font-size: 14px;
   letter-spacing: 0.1rem;
   line-height: 20px;
-  margin-top: 2.7rem;
 }
 .order__div h4 {
   font-size: 18px;
@@ -66,5 +66,12 @@
 @media screen and (max-width: 500px) {
   .order__container > h1 {
     font-size: 29px;
+  }
+  .order__container {
+    min-width: 360px;
+  }
+  .order__span {
+    padding: 1.7rem 0.5rem;
+    margin: 1.5rem 0;
   }
 }
