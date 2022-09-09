@@ -188,7 +188,9 @@
 }
 
 .basket__transaction-container {
-  border: 1px solid red;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 0.5rem;
   margin: 1.5rem 0;
   height: 175px;
   font-size: 15px;
@@ -197,10 +199,20 @@
   line-height: 20px;
 }
 
-.basket__transaction-container p:last-child {
-  margin: 2rem 0;
+.basket__transaction-container ul {
+  margin: 1rem 0;
   height: 120px;
-  border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.basket__transaction-container li {
+  list-style-type: none;
+}
+
+.basket__transaction-container img {
+  width: 60px;
 }
 
 .basket__important {
