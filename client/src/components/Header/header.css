@@ -1,6 +1,6 @@
 .header {
   max-width: 1800px;
-  margin: 2rem auto;
+  margin: 1rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -186,21 +186,21 @@
 }
 
 .header__basket-hover {
-  top: 63px;
+  top: 45px;
   right: 10px;
   min-width: 285px;
 }
 
 .header__sign-hover {
   padding: 0.5rem 1rem;
-  top: 63px;
-  right: 5rem;
+  top: 47px;
+  right: 6rem;
   min-width: 250px;
 }
 
 .header__search-hover {
-  top: 68px;
-  right: 8px;
+  top: 47px;
+  right: 5px;
   min-width: 355px;
   padding: 0;
 }
