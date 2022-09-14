@@ -70,6 +70,17 @@
   cursor: pointer;
 }
 
+.basketMenu__button {
+  border: none;
+  height: 10px;
+  margin-bottom: 1rem;
+  background: rgb(246, 246, 241);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .basketMenu__checkout {
   background-color: black;
   color: white;
