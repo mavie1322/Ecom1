@@ -3,7 +3,9 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
   gap: 1rem;
 }
 
@@ -50,6 +52,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  max-width: 1800px;
+  margin: 0 auto;
 
   font-family: var(--font-family);
   font-weight: 300;
@@ -85,11 +89,17 @@
 }
 @media screen and (max-width: 785px) {
   .home {
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    align-items: flex-start;
   }
   .singleItem {
-    width: 375px;
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 616px) {
+  .singleItem {
+    width: 400px;
   }
 }
 
