@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BasketContext } from "../../../context/basket";
 import { useAppSelector } from "../../../hooks/hooks";
 import { BasketContextType, BasketItem } from "../../../models";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import "./basketSubmenu.css";
 
 type Props = {
@@ -15,6 +16,7 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
     BasketContext
   ) as BasketContextType;
   const [productsInBasket, setProductsInBasket] = useState<BasketItem[]>([]);
+  const [index, setIndex] = useState<number>(0);
   const delivery: number = 3.99;
   const navigate = useNavigate();
   let orderValue: number =
@@ -22,6 +24,8 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
       total += item.item_basket.price * item.quantity_ordered;
       return total;
     }, 0) / 100;
+
+  console.log(productsInBasket);
 
   const redirectToBasketHandler = () => {
     if (userLoggedIn._id) navigate(`/users/${userLoggedIn._id}/basket`);
@@ -31,6 +35,17 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
   const handleCheckout = () => {
     navigate(`/users/${userLoggedIn._id}/checkout`);
     changeCheckout();
+  };
+
+  const goToPreviousItem = () => {
+    let newIndex = index - 1;
+    if (newIndex < 0) setIndex(productsInBasket.length - 1);
+    else setIndex(newIndex);
+  };
+  const goToNextItem = () => {
+    let newIndex = index + 1;
+    if (newIndex > productsInBasket.length - 1) setIndex(0);
+    else setIndex(newIndex);
   };
 
   useEffect(() => {
@@ -47,27 +62,48 @@ const BasketSubMenu: React.FC<Props> = ({ togglePopup }) => {
         ) : (
           // loop through the items in the basket to display in the submenu
           <>
-            {productsInBasket.map((item) => {
-              const { item_basket, quantity_ordered } = item;
-              const { item_name, price, img_url, _id } = item_basket;
-              return (
-                <Link key={_id} to={`/products/${_id}`} className='link'>
-                  <div className='basketSubmenu'>
-                    <div>
-                      <img src={img_url} alt={item_name} />
-                    </div>
-                    <div className='basketSubmenu__info'>
-                      <span>{item_name}</span>
-                      <span>£{(price / 100).toFixed(2)}</span>
-                      <span>
-                        Quantity: {"   "}
-                        {quantity_ordered}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+            {productsInBasket.length > 1 && (
+              <button
+                type='button'
+                onClick={() => goToPreviousItem()}
+                className='basketMenu__button'>
+                <IoIosArrowUp size={20} />
+              </button>
+            )}
+            <Link
+              key={productsInBasket[index].item_basket._id}
+              to={`/products/${productsInBasket[index].item_basket._id}`}
+              className='link'>
+              <div className='basketSubmenu'>
+                <div>
+                  <img
+                    src={productsInBasket[index].item_basket.img_url}
+                    alt={productsInBasket[index].item_basket.item_name}
+                  />
+                </div>
+                <div className='basketSubmenu__info'>
+                  <span>{productsInBasket[index].item_basket.item_name}</span>
+                  <span>
+                    £
+                    {(productsInBasket[index].item_basket.price / 100).toFixed(
+                      2
+                    )}
+                  </span>
+                  <span>
+                    Quantity: {"   "}
+                    {productsInBasket[index].quantity_ordered}
+                  </span>
+                </div>
+              </div>
+            </Link>
+            {productsInBasket.length > 1 && (
+              <button
+                type='button'
+                onClick={() => goToNextItem()}
+                className='basketMenu__button'>
+                <IoIosArrowDown size={20} />
+              </button>
+            )}
           </>
         )}{" "}
       </div>
